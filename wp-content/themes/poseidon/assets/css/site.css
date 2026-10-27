@@ -1,0 +1,769 @@
+/* Poseidon — "kamiza": white wall, framed photographs, one red circle. Tokens in theme.json; see design/DESIGN.md. */
+
+:root {
+	--pos-on-action: #ffffff;
+	--pos-frame-mat: 10px;
+	--pos-radius: 4px;
+	--pos-max: 1200px;
+	--pos-gutter: max(1rem, 4vw);
+	color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--wp--preset--color--wall: #151515;
+		--wp--preset--color--ink: #ededE8;
+		--wp--preset--color--stone: #a3a39c;
+		--wp--preset--color--mist: #232322;
+		--wp--preset--color--action: #ff5a4e;
+		--pos-on-action: #151515;
+		color-scheme: dark;
+	}
+}
+
+:root[data-theme="dark"] {
+	--wp--preset--color--wall: #151515;
+	--wp--preset--color--ink: #ededE8;
+	--wp--preset--color--stone: #a3a39c;
+	--wp--preset--color--mist: #232322;
+	--wp--preset--color--action: #ff5a4e;
+	--pos-on-action: #151515;
+	color-scheme: dark;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	overflow-wrap: anywhere;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+p,
+li {
+	max-width: 68ch;
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+	outline: 3px solid var(--wp--preset--color--action);
+	outline-offset: 2px;
+}
+
+.wp-element-button,
+.wp-block-button__link,
+.pos-button--primary {
+	color: var(--pos-on-action) !important;
+}
+
+/* ---------- Buttons ---------- */
+
+.pos-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	padding: 0.625rem 1.125rem;
+	border-radius: var(--pos-radius);
+	border: 2px solid var(--wp--preset--color--action);
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+.pos-button--primary {
+	background: var(--wp--preset--color--action);
+}
+
+.pos-button--primary:hover {
+	background: var(--wp--preset--color--ink);
+	border-color: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--wall) !important;
+}
+
+.pos-button--ghost {
+	background: transparent;
+	color: var(--wp--preset--color--action);
+}
+
+.pos-button--ghost:hover {
+	background: var(--wp--preset--color--action);
+	color: var(--pos-on-action);
+}
+
+/* ---------- Closure banner ---------- */
+
+.pos-closure {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--wall);
+	padding: 0.75rem var(--pos-gutter);
+}
+
+.pos-closure p {
+	margin: 0 auto;
+	max-width: var(--pos-max);
+}
+
+.pos-closure p::before {
+	content: "";
+	display: inline-block;
+	width: 0.75em;
+	height: 0.75em;
+	margin-right: 0.5em;
+	border-radius: 50%;
+	background: #fe0000;
+	vertical-align: -0.05em;
+}
+
+/* ---------- Header ---------- */
+
+.pos-header {
+	border-bottom: 1px solid var(--wp--preset--color--ink);
+	padding: 0.75rem var(--pos-gutter);
+}
+
+.pos-header__inner {
+	max-width: var(--pos-max);
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem 1.5rem;
+}
+
+.pos-header__inner > .wp-block-poseidon-site-nav,
+.pos-header__inner > div:first-child {
+	display: contents;
+}
+
+.pos-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.625rem;
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+	font-weight: 900;
+	font-size: 1.25rem;
+	letter-spacing: -0.01em;
+	margin-right: auto;
+}
+
+.pos-brand img {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.pos-nav {
+	display: flex;
+	align-items: center;
+	gap: 1rem 1.5rem;
+	flex-wrap: wrap;
+}
+
+.pos-nav__links,
+.pos-langs ul,
+.pos-footer-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1.25rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pos-nav__links a {
+	display: inline-block;
+	padding: 0.625rem 0;
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+	font-weight: 700;
+	border-bottom: 3px solid transparent;
+}
+
+.pos-nav__links a:hover,
+.pos-nav__links a[aria-current="page"] {
+	border-bottom-color: var(--wp--preset--color--action);
+}
+
+.pos-header__tools {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.pos-langs a {
+	display: inline-block;
+	min-width: 44px;
+	padding: 0.625rem 0.25rem;
+	text-align: center;
+	color: var(--wp--preset--color--stone);
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 0.875rem;
+}
+
+.pos-langs a[aria-current="true"] {
+	color: var(--wp--preset--color--ink);
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 6px;
+}
+
+.pos-theme-toggle {
+	min-height: 44px;
+	background: none;
+	border: 1px solid var(--wp--preset--color--stone);
+	border-radius: var(--pos-radius);
+	color: var(--wp--preset--color--ink);
+	font: inherit;
+	font-size: 0.875rem;
+	padding: 0.25rem 0.75rem;
+	cursor: pointer;
+}
+
+@media (max-width: 760px) {
+	.pos-nav {
+		order: 3;
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	.pos-nav__links {
+		gap: 0 1rem;
+	}
+
+	.pos-header__tools {
+		order: 2;
+	}
+}
+
+/* ---------- Main ---------- */
+
+.pos-main {
+	padding-top: var(--wp--preset--spacing--50);
+	padding-bottom: var(--wp--preset--spacing--60);
+}
+
+.pos-page-title {
+	margin-bottom: var(--wp--preset--spacing--40);
+}
+
+/* Home sections use the wide measure; running text inside keeps its own max-width. */
+.is-layout-constrained > .pos-hero,
+.is-layout-constrained > .pos-section {
+	max-width: var(--wp--style--global--wide-size);
+}
+
+/* ---------- Home: hero ---------- */
+
+.pos-hero {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+	gap: clamp(1.5rem, 5vw, 4rem);
+	align-items: center;
+	padding-block: clamp(1rem, 4vw, 3rem) var(--wp--preset--spacing--60);
+}
+
+.pos-hero h1 {
+	font-size: var(--wp--preset--font-size--display);
+	margin: 0 0 1.25rem;
+}
+
+.pos-hero__lead {
+	font-size: var(--wp--preset--font-size--lead);
+	color: var(--wp--preset--color--stone);
+	margin: 0 0 2rem;
+}
+
+.pos-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+
+.pos-hero__visual {
+	position: relative;
+	isolation: isolate;
+}
+
+.pos-hero__visual::before {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	width: 78%;
+	aspect-ratio: 1;
+	right: -12%;
+	top: -14%;
+	border-radius: 50%;
+	background: #fe0000;
+	animation: pos-disc 300ms ease-out both;
+}
+
+.pos-hero__kanji {
+	position: absolute;
+	right: -0.25rem;
+	bottom: -0.5rem;
+	writing-mode: vertical-rl;
+	font-weight: 900;
+	font-size: clamp(1.25rem, 2.4vw, 2rem);
+	letter-spacing: 0.3em;
+	color: var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--wall);
+	padding: 0.5rem 0.25rem;
+	margin: 0;
+}
+
+@keyframes pos-disc {
+	from {
+		transform: scale(0.85);
+		opacity: 0;
+	}
+}
+
+@media (max-width: 760px) {
+	.pos-hero {
+		grid-template-columns: 1fr;
+	}
+
+	.pos-hero__visual {
+		order: -1;
+		margin-right: 1.5rem;
+	}
+}
+
+/* ---------- Framed photographs (like the portraits on the kamiza) ---------- */
+
+.pos-frame,
+.pos-frame img {
+	display: block;
+}
+
+.pos-frame {
+	margin: 0;
+	padding: var(--pos-frame-mat);
+	background: var(--wp--preset--color--wall);
+	border: 1px solid var(--wp--preset--color--ink);
+}
+
+.pos-frame figcaption {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--stone);
+	padding-top: 0.5rem;
+}
+
+/* ---------- Sections ---------- */
+
+.pos-section {
+	padding-block: var(--wp--preset--spacing--50);
+	border-top: 1px solid var(--wp--preset--color--ink);
+}
+
+.pos-section > h2 {
+	margin-top: 0;
+}
+
+.pos-split {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: clamp(1.5rem, 5vw, 4rem);
+	align-items: start;
+}
+
+@media (max-width: 760px) {
+	.pos-split {
+		grid-template-columns: 1fr;
+	}
+}
+
+.pos-lineage {
+	list-style: none;
+	margin: 1.5rem 0;
+	padding: 0 0 0 1.25rem;
+	border-left: 3px solid var(--wp--preset--color--action);
+}
+
+.pos-lineage li {
+	margin: 0 0 0.75rem;
+}
+
+.pos-lineage strong {
+	display: block;
+}
+
+/* ---------- Notices ---------- */
+
+.pos-notice {
+	padding: 0.875rem 1rem;
+	border-left: 4px solid var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--mist);
+	max-width: none;
+}
+
+.pos-notice--confirm,
+.pos-notice--error {
+	border-left-color: var(--wp--preset--color--action);
+}
+
+.pos-notice--ok {
+	border-left-color: #2f7d32;
+}
+
+/* ---------- Timetable ---------- */
+
+.pos-schedule {
+	margin-block: 1.5rem;
+}
+
+.pos-filter {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: end;
+	gap: 0.75rem 1.25rem;
+	padding: 1.25rem;
+	margin-bottom: 1.5rem;
+	border: 1px solid var(--wp--preset--color--ink);
+}
+
+.pos-filter__title {
+	flex-basis: 100%;
+	max-width: none;
+	width: 100%;
+	margin: 0;
+	font-weight: 900;
+	font-size: var(--wp--preset--font-size--heading-3);
+	letter-spacing: -0.01em;
+}
+
+.pos-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+	font-weight: 700;
+	font-size: 0.9375rem;
+}
+
+.pos-field input,
+.pos-field select {
+	min-height: 44px;
+	height: 44px;
+	box-sizing: border-box;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--wp--preset--color--ink);
+	border-radius: var(--pos-radius);
+	background: var(--wp--preset--color--wall);
+	color: var(--wp--preset--color--ink);
+	font: inherit;
+	font-weight: 400;
+}
+
+.pos-filter input[name="age"] {
+	width: 6.5rem;
+}
+
+.pos-schedule__days {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+	gap: 1.5rem 2rem;
+}
+
+.pos-schedule__day-name {
+	font-size: var(--wp--preset--font-size--heading-3);
+	margin: 0 0 0.5rem;
+	padding-bottom: 0.375rem;
+	border-bottom: 2px solid var(--wp--preset--color--ink);
+}
+
+.pos-schedule__sessions {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pos-session {
+	display: grid;
+	grid-template-columns: 7.25rem 1fr;
+	gap: 0.125rem 0.75rem;
+	padding: 0.625rem 0;
+	border-bottom: 1px solid var(--wp--preset--color--mist);
+	max-width: none;
+}
+
+.pos-session__time {
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+
+.pos-session__ics {
+	grid-column: 2;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.pos-session.is-closed .pos-session__time,
+.pos-session.is-closed .pos-session__label {
+	text-decoration: line-through;
+	color: var(--wp--preset--color--stone);
+}
+
+.pos-badge {
+	grid-column: 2;
+	justify-self: start;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 700;
+	padding: 0.125rem 0.5rem;
+	border-radius: var(--pos-radius);
+}
+
+.pos-badge--closed {
+	background: var(--wp--preset--color--action);
+	color: var(--pos-on-action);
+}
+
+/* ---------- Events ---------- */
+
+.pos-events {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pos-event {
+	max-width: none;
+	padding: 1rem 0;
+	border-bottom: 1px solid var(--wp--preset--color--mist);
+}
+
+.pos-event article {
+	display: grid;
+	grid-template-columns: 10rem 1fr;
+	gap: 0.25rem 1.5rem;
+}
+
+.pos-event__type {
+	grid-row: span 4;
+	margin: 0;
+	font-weight: 700;
+	color: var(--wp--preset--color--stone);
+}
+
+.pos-event--closure .pos-event__type {
+	color: var(--wp--preset--color--action);
+}
+
+.pos-event__title {
+	font-size: 1.25rem;
+	margin: 0;
+	letter-spacing: -0.01em;
+}
+
+.pos-event__title a {
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+}
+
+.pos-event__title a:hover {
+	text-decoration: underline;
+}
+
+.pos-event__when,
+.pos-event__where,
+.pos-event__links {
+	margin: 0;
+}
+
+.pos-event__when {
+	font-variant-numeric: tabular-nums;
+}
+
+.pos-event__where,
+.pos-event__links {
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.pos-event__links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1.25rem;
+}
+
+@media (max-width: 600px) {
+	.pos-event article {
+		grid-template-columns: 1fr;
+	}
+
+	.pos-event__type {
+		grid-row: auto;
+	}
+}
+
+.pos-agenda__filter {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.pos-agenda__filter a {
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	padding: 0 0.875rem;
+	border: 1px solid var(--wp--preset--color--ink);
+	border-radius: var(--pos-radius);
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 0.9375rem;
+}
+
+.pos-agenda__filter a[aria-current="true"] {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--wall);
+}
+
+.pos-agenda__month {
+	margin: 2rem 0 0.25rem;
+}
+
+.pos-details {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 0.5rem 1.5rem;
+	margin: 0 0 1.5rem;
+	padding: 1.25rem 0;
+	border-block: 1px solid var(--wp--preset--color--ink);
+}
+
+.pos-details dt {
+	font-weight: 700;
+}
+
+.pos-details dd {
+	margin: 0;
+}
+
+/* ---------- Trial form ---------- */
+
+.pos-trial__form {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem 1.5rem;
+	padding: clamp(1rem, 3vw, 2rem);
+	border: 1px solid var(--wp--preset--color--ink);
+}
+
+.pos-field--email,
+.pos-field--class_id,
+.pos-field--source,
+.pos-trial__privacy,
+.pos-trial__form > .pos-button {
+	grid-column: 1 / -1;
+}
+
+.pos-trial__form > .pos-button {
+	justify-self: start;
+}
+
+.pos-field__error {
+	min-height: 1.2em;
+	color: var(--wp--preset--color--action);
+	font-weight: 400;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.pos-field [aria-invalid="true"] {
+	border-color: var(--wp--preset--color--action);
+	border-width: 2px;
+}
+
+.pos-trial__privacy {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--stone);
+	margin: 0;
+}
+
+.pos-hp {
+	position: absolute !important;
+	left: -10000px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+@media (max-width: 600px) {
+	.pos-trial__form {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ---------- Share ---------- */
+
+.pos-share {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+
+.pos-button--whatsapp,
+.pos-button--facebook {
+	background: transparent;
+	color: var(--wp--preset--color--ink);
+	border-color: var(--wp--preset--color--ink);
+}
+
+/* ---------- Footer ---------- */
+
+.pos-footer {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--wall);
+	padding: var(--wp--preset--spacing--50) var(--pos-gutter);
+}
+
+.pos-footer a {
+	color: var(--wp--preset--color--wall);
+}
+
+.pos-footer__inner {
+	max-width: var(--pos-max);
+	margin: 0 auto;
+	display: grid;
+	gap: 1.5rem;
+}
+
+.pos-footer address {
+	font-style: normal;
+	line-height: 1.7;
+}
+
+.pos-footer__member {
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.pos-footer .pos-langs a {
+	color: var(--wp--preset--color--wall);
+}
+
+/* ---------- Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation: none !important;
+		transition: none !important;
+	}
+}
