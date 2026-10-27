@@ -1,3 +1,70 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
-<title>Maquettes | SKIF Poseidon</title><style>body{font:18px/1.6 system-ui;margin:0;padding:32px;max-width:760px}a{display:block;font-size:22px;margin:14px 0}</style></head><body>
-<h1>Trois directions pour le nouveau site</h1><p>Maquettes de l'accueil, données réelles du club. Choisissez celle qui vous plaît (ou ce que vous aimez dans chacune).</p><a href="a.html">A. Rouge Poseidon (énergie)</a><a href="b.html">B. Indigo dojo (traditionnel chaleureux)</a><a href="c.html">C. Clair sportif (frais et lumineux)</a></body></html>
+<title>Choisir le style du nouveau site | SKIF Poseidon</title><style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f2f3f5;color:#15171a;font:18px/1.55 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+header{background:#15171a;color:#fff;padding:clamp(28px,5vw,56px) 0}
+header h1{font-size:clamp(30px,4.4vw,52px);line-height:1.1;margin:0 0 12px;letter-spacing:-.02em}
+header p{font-size:clamp(18px,1.6vw,21px);max-width:62ch;margin:0;color:#d6d8dd}
+.steps{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;padding:0;list-style:none}
+.steps li{background:#262a30;border-radius:14px;padding:12px 18px;font-size:17px}
+.steps b{color:#ffcf5a;margin-right:6px}
+.same{background:#fff;border-radius:18px;padding:18px 22px;margin:28px 0 8px;font-size:17px}
+.card{background:#fff;border-radius:22px;margin:28px 0;overflow:hidden;box-shadow:0 18px 40px -30px rgba(0,0,0,.4)}
+.card-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;padding:22px clamp(18px,3vw,32px)}
+.letter{flex:0 0 auto;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:28px;font-weight:800;color:#fff;background:var(--c)}
+.title{flex:1 1 300px}
+.title h2{margin:0;font-size:clamp(24px,2.6vw,34px);letter-spacing:-.01em}
+.title p{margin:2px 0 0;color:#4a4f57}
+.swatches{display:flex;gap:6px}
+.swatches span{width:34px;height:34px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.font{font-size:15px;color:#4a4f57}
+.shots{display:grid;grid-template-columns:minmax(0,3.2fr) minmax(0,1fr);gap:14px;padding:0 clamp(18px,3vw,32px)}
+.shots img{width:100%;height:auto;border-radius:12px;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.phone img{border-radius:22px}
+.more{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:14px clamp(18px,3vw,32px) 0}
+.more figure{margin:0}
+.more img{width:100%;height:220px;object-fit:cover;object-position:top;border-radius:12px;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.more figcaption{font-size:15px;color:#4a4f57;margin-top:6px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;padding:22px clamp(18px,3vw,32px) 26px}
+.btn{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;font-weight:700;font-size:18px;text-decoration:none;background:var(--c);color:#fff}
+.btn.alt{background:#eef0f3;color:#15171a}
+footer{padding:40px 0 60px;color:#4a4f57}
+@media (max-width:760px){.shots{grid-template-columns:1fr 0.62fr}.more{grid-template-columns:1fr}.more img{height:180px}}
+</style></head><body>
+<header><div class="wrap"><h1>Choisissez le style du nouveau site</h1>
+<p>Cinq univers pour le site du SKIF Poseidon. Regardez les images, ouvrez les maquettes sur votre téléphone, puis dites-nous votre préféré.</p>
+<ol class="steps"><li><b>1</b>Regardez les cinq univers</li><li><b>2</b>Ouvrez celui qui vous plaît</li><li><b>3</b>Envoyez la lettre à Mohamad</li></ol></div></header>
+<main class="wrap"><p class="same"><strong>Dans les cinq univers :</strong> le même contenu, la grille des cours filtrable par âge, l'agenda du mois, le cours d'essai, les trois langues et l'adaptation au téléphone. Seuls les couleurs, la typographie et l'ambiance changent. On peut aussi mélanger (par exemple les couleurs de B avec les titres de A).</p>
+<article class="card" style="--c:#d7141a" id="a">
+<div class="card-head"><div class="letter">A</div><div class="title"><h2>Rouge Poseidon</h2><p>Énergique, comme une affiche de compétition. Grande photo, rouge et noir.</p></div>
+<div><div class="swatches" aria-label="Couleurs"><span style="background:#d7141a" title="#d7141a"></span><span style="background:#16161a" title="#16161a"></span><span style="background:#ffffff" title="#ffffff"></span><span style="background:#e8a100" title="#e8a100"></span><span style="background:#0f8a6c" title="#0f8a6c"></span></div><div class="font">Police : Barlow Condensed</div></div></div>
+<div class="shots"><img src="shots/a-ecran.webp" alt="Univers A, premier écran sur ordinateur" loading="lazy"><div class="phone"><img src="shots/a-mobile.webp" alt="Univers A sur téléphone" loading="lazy"></div></div>
+<div class="more"><figure><img src="shots/a-cours.webp" alt="Grille de la semaine, univers A" loading="lazy"><figcaption>La semaine des cours, filtrable par âge</figcaption></figure>
+<figure><img src="shots/a-agenda.webp" alt="Agenda du mois, univers A" loading="lazy"><figcaption>L'agenda du mois et les prochains rendez-vous</figcaption></figure></div>
+<div class="actions"><a class="btn" href="a.html">Essayer la maquette A</a></div></article><article class="card" style="--c:#1c2850" id="b">
+<div class="card-head"><div class="letter">B</div><div class="title"><h2>Indigo dojo</h2><p>Traditionnel et chaleureux. Le bleu indigo des keikogi, le disque rouge du logo.</p></div>
+<div><div class="swatches" aria-label="Couleurs"><span style="background:#1c2850" title="#1c2850"></span><span style="background:#e2401f" title="#e2401f"></span><span style="background:#eef0f5" title="#eef0f5"></span><span style="background:#f0a202" title="#f0a202"></span><span style="background:#2a9d8f" title="#2a9d8f"></span></div><div class="font">Police : Archivo</div></div></div>
+<div class="shots"><img src="shots/b-ecran.webp" alt="Univers B, premier écran sur ordinateur" loading="lazy"><div class="phone"><img src="shots/b-mobile.webp" alt="Univers B sur téléphone" loading="lazy"></div></div>
+<div class="more"><figure><img src="shots/b-cours.webp" alt="Grille de la semaine, univers B" loading="lazy"><figcaption>La semaine des cours, filtrable par âge</figcaption></figure>
+<figure><img src="shots/b-agenda.webp" alt="Agenda du mois, univers B" loading="lazy"><figcaption>L'agenda du mois et les prochains rendez-vous</figcaption></figure></div>
+<div class="actions"><a class="btn" href="b.html">Essayer la maquette B</a></div></article><article class="card" style="--c:#15171a" id="c">
+<div class="card-head"><div class="letter">C</div><div class="title"><h2>Clair sportif</h2><p>Frais et lumineux, comme un club sportif moderne. Coins arrondis, rouge vif.</p></div>
+<div><div class="swatches" aria-label="Couleurs"><span style="background:#ffffff" title="#ffffff"></span><span style="background:#e30613" title="#e30613"></span><span style="background:#f4f6fa" title="#f4f6fa"></span><span style="background:#ff9f1c" title="#ff9f1c"></span><span style="background:#3b4cca" title="#3b4cca"></span></div><div class="font">Police : Outfit</div></div></div>
+<div class="shots"><img src="shots/c-ecran.webp" alt="Univers C, premier écran sur ordinateur" loading="lazy"><div class="phone"><img src="shots/c-mobile.webp" alt="Univers C sur téléphone" loading="lazy"></div></div>
+<div class="more"><figure><img src="shots/c-cours.webp" alt="Grille de la semaine, univers C" loading="lazy"><figcaption>La semaine des cours, filtrable par âge</figcaption></figure>
+<figure><img src="shots/c-agenda.webp" alt="Agenda du mois, univers C" loading="lazy"><figcaption>L'agenda du mois et les prochains rendez-vous</figcaption></figure></div>
+<div class="actions"><a class="btn" href="c.html">Essayer la maquette C</a></div></article><article class="card" style="--c:#15171a" id="d">
+<div class="card-head"><div class="letter">D</div><div class="title"><h2>Zen</h2><p>Épuré, à l'esprit japonais. Noir encre, photo en noir et blanc, un sceau rouge.</p></div>
+<div><div class="swatches" aria-label="Couleurs"><span style="background:#f5f5f3" title="#f5f5f3"></span><span style="background:#1c1c1c" title="#1c1c1c"></span><span style="background:#c8102e" title="#c8102e"></span><span style="background:#b98b2e" title="#b98b2e"></span><span style="background:#4f7f6e" title="#4f7f6e"></span></div><div class="font">Police : Zen Kaku Gothic New</div></div></div>
+<div class="shots"><img src="shots/d-ecran.webp" alt="Univers D, premier écran sur ordinateur" loading="lazy"><div class="phone"><img src="shots/d-mobile.webp" alt="Univers D sur téléphone" loading="lazy"></div></div>
+<div class="more"><figure><img src="shots/d-cours.webp" alt="Grille de la semaine, univers D" loading="lazy"><figcaption>La semaine des cours, filtrable par âge</figcaption></figure>
+<figure><img src="shots/d-agenda.webp" alt="Agenda du mois, univers D" loading="lazy"><figcaption>L'agenda du mois et les prochains rendez-vous</figcaption></figure></div>
+<div class="actions"><a class="btn" href="d.html">Essayer la maquette D</a></div></article><article class="card" style="--c:#121214" id="e">
+<div class="card-head"><div class="letter">E</div><div class="title"><h2>Sombre premium</h2><p>Élégant et cinématographique. Fond anthracite, touches dorées.</p></div>
+<div><div class="swatches" aria-label="Couleurs"><span style="background:#121214" title="#121214"></span><span style="background:#d4ad57" title="#d4ad57"></span><span style="background:#1b1b1f" title="#1b1b1f"></span><span style="background:#d8483f" title="#d8483f"></span><span style="background:#4fb39a" title="#4fb39a"></span></div><div class="font">Police : Manrope</div></div></div>
+<div class="shots"><img src="shots/e-ecran.webp" alt="Univers E, premier écran sur ordinateur" loading="lazy"><div class="phone"><img src="shots/e-mobile.webp" alt="Univers E sur téléphone" loading="lazy"></div></div>
+<div class="more"><figure><img src="shots/e-cours.webp" alt="Grille de la semaine, univers E" loading="lazy"><figcaption>La semaine des cours, filtrable par âge</figcaption></figure>
+<figure><img src="shots/e-agenda.webp" alt="Agenda du mois, univers E" loading="lazy"><figcaption>L'agenda du mois et les prochains rendez-vous</figcaption></figure></div>
+<div class="actions"><a class="btn" href="e.html">Essayer la maquette E</a></div></article></main>
+<footer><div class="wrap">Maquettes de démonstration. Horaires publiés par SKIF Belgium, à confirmer par le club. Photos : site du club SKIF Poseidon.</div></footer></body></html>

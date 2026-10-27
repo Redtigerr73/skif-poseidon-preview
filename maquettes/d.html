@@ -1,0 +1,159 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Maquette D. Zen (encre et sceau rouge) | SKIF Poseidon</title><link rel="stylesheet" href="fonts.css"><style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:100%;max-width:1440px;margin:0 auto;padding-inline:clamp(16px,4vw,56px)}
+.mock-tag{position:fixed;z-index:50;left:12px;bottom:12px;background:#111;color:#fff;font:600 12px/1 system-ui;padding:8px 10px;border-radius:6px;opacity:.85}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:var(--nav-bg);color:var(--nav-text);backdrop-filter:saturate(1.4) blur(10px)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:var(--brand-track)}
+.brand img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff}
+.links{display:flex;gap:26px;margin-left:auto;font-weight:600;font-size:16px}
+.links a{text-decoration:none;opacity:.9}.links a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
+.langs{display:flex;gap:10px;font-size:14px;font-weight:700;opacity:.8}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:var(--radius-btn);font-weight:700;font-size:16px;text-decoration:none;border:2px solid transparent;white-space:nowrap;transition:transform .15s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-ghost{border-color:currentColor}
+/* sections */
+section{padding-block:clamp(56px,7vw,104px)}
+h2{font-family:var(--display);font-size:clamp(34px,4.2vw,60px);line-height:1.02;margin:0 0 14px;letter-spacing:var(--title-track);text-transform:var(--title-case);font-weight:var(--title-weight)}
+.lead{font-size:clamp(17px,1.4vw,20px);max-width:62ch;margin:0 0 32px;color:var(--muted)}
+/* timetable */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;align-items:center}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;border:2px solid var(--chip-border);background:transparent;color:var(--text);font:600 15px var(--body);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--chip-on);border-color:var(--chip-on);color:var(--chip-on-text)}
+.toggle{display:inline-flex;gap:8px;align-items:center;font-weight:600;margin-left:8px;cursor:pointer}
+.toggle input{width:20px;height:20px;accent-color:var(--accent)}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px}
+.day{display:flex;flex-direction:column;gap:10px;min-height:200px;padding:14px;border-radius:var(--radius);background:var(--day-bg)}
+.day-name{font-family:var(--display);font-weight:800;font-size:19px;text-transform:var(--title-case);letter-spacing:var(--title-track)}
+.rest{margin-top:auto;margin-bottom:auto;text-align:center;font-size:14px;color:var(--muted);opacity:.7}
+.slot{display:flex;flex-direction:column;gap:2px;padding:12px 12px 12px 14px;border-radius:calc(var(--radius) - 4px);background:var(--slot-bg);border-left:6px solid var(--c);transition:opacity .2s,filter .2s;font-size:15px;line-height:1.3}
+.slot strong{font-size:17px}
+.slot-time{font-weight:700;font-variant-numeric:tabular-nums;color:var(--c-text,var(--c))}
+.slot.dim{opacity:.22;filter:grayscale(1)}
+.g-kids{--c:var(--kids)}.g-teen{--c:var(--teen)}.g-adult{--c:var(--adult)}.g-adv{--c:var(--adv)}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:14px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
+@media (max-width:1100px){.week{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:640px){.week{grid-template-columns:1fr}.day:has(.rest){display:none}.day{min-height:0}.links,.langs{display:none}}
+/* agenda */
+.agenda-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);gap:clamp(20px,3vw,44px);align-items:start}
+@media (max-width:980px){.agenda-grid{grid-template-columns:1fr}}
+.calendar{background:var(--cal-bg);border-radius:var(--radius);padding:clamp(14px,2vw,26px)}
+.cal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.cal-title{flex:1;text-align:center;margin:0;font-family:var(--display);font-size:clamp(22px,2vw,30px);text-transform:capitalize}
+.cal-nav{width:44px;height:44px;border-radius:999px;border:2px solid var(--chip-border);background:transparent;color:var(--text);font-size:22px;cursor:pointer}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal-dow{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding:4px 0}
+.cal-cell{min-height:96px;border-radius:10px;background:var(--cell-bg);padding:6px;display:flex;flex-direction:column;gap:4px;position:relative}
+.cal-cell.out{opacity:.35}
+.cal-cell.today{outline:3px solid var(--accent);outline-offset:-3px}
+.cal-num{font-weight:700;font-size:14px}
+.cal-ev{display:block;font-size:12px;line-height:1.25;padding:4px 6px;border-radius:6px;color:#fff;background:var(--ev);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cal-dot{position:absolute;right:8px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--muted);opacity:.5}
+.t-stage{--ev:var(--ev-stage)}.t-competition{--ev:var(--ev-comp)}.t-exam{--ev:var(--ev-exam)}
+@media (max-width:640px){.cal-cell{min-height:56px}.cal-ev{font-size:0;height:8px;padding:0}}
+.events{display:flex;flex-direction:column;gap:14px}
+.event{display:flex;gap:16px;align-items:stretch;padding:16px;border-radius:var(--radius);background:var(--card-bg)}
+.date-tile{flex:0 0 74px;border-radius:calc(var(--radius) - 4px);background:var(--ev);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}
+.dd{font-family:var(--display);font-size:34px;font-weight:800;line-height:1}
+.mm{font-size:13px;font-weight:700;text-transform:uppercase}
+.event-type{font-size:13px;font-weight:700;color:var(--ev)}
+.event h4{margin:2px 0 4px;font-size:18px;line-height:1.25}
+.event p{margin:0;font-size:15px;color:var(--muted)}
+/* club band */
+.club{position:relative;color:#fff;padding:0}
+.club img{width:100%;height:clamp(420px,52vw,640px);object-fit:cover}
+.club .over{position:absolute;inset:0;display:flex;align-items:flex-end;background:var(--club-shade)}
+.club .over .wrap{padding-bottom:clamp(28px,5vw,64px)}
+.club h2{color:#fff}
+.lineage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1100px;margin-top:22px}
+.lineage div{padding:16px 18px;border-radius:var(--radius);background:rgba(10,10,14,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18)}
+.lineage strong{display:block;font-family:var(--display);font-size:22px}
+@media (max-width:760px){.lineage{grid-template-columns:1fr}}
+/* infos */
+.infos-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(20px,3vw,44px);align-items:center}
+@media (max-width:860px){.infos-grid{grid-template-columns:1fr}}
+.infos address{font-style:normal;font-size:19px;line-height:1.7}
+.infos .map{border-radius:var(--radius);overflow:hidden}
+.infos .map img{width:100%;height:auto}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+
+/* quick access: everything essential in the first screen */
+.quick{padding:0;position:relative;z-index:5}
+.quick .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:var(--quick-lift,0px)}
+.tile{display:flex;flex-direction:column;gap:4px;padding:18px 20px;border-radius:var(--radius);background:var(--tile-bg);color:var(--tile-text);text-decoration:none;min-height:116px;box-shadow:var(--tile-shadow,none)}
+.tile small{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tile-label)}
+.tile strong{font-family:var(--display);font-size:clamp(20px,1.7vw,26px);line-height:1.1}
+.tile span{font-size:15px;opacity:.85}
+.tile.cta{background:var(--accent);color:var(--on-accent)}.tile.cta small{color:inherit;opacity:.85}
+@media (max-width:980px){.quick .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.quick .wrap{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.tile{flex:0 0 72%;scroll-snap-align:start;min-height:0;padding:14px 16px}}
+
+footer{background:var(--foot-bg);color:var(--foot-text);padding-block:48px;font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:24px 60px;justify-content:space-between}
+
+:root{--display:'Zen Kaku Gothic New',sans-serif;--body:'Zen Kaku Gothic New',sans-serif;--bg:#f5f5f3;--text:#1c1c1c;--muted:#5a5a58;--accent:#c8102e;--on-accent:#fff;
+--nav-bg:rgba(245,245,243,.94);--nav-text:#1c1c1c;--radius:2px;--radius-btn:2px;--brand-track:.02em;--title-track:.02em;--title-case:none;--title-weight:900;
+--chip-border:#1c1c1c;--chip-on:#1c1c1c;--chip-on-text:#fff;--day-bg:#ffffff;--slot-bg:#f5f5f3;
+--kids:#b98b2e;--teen:#4f7f6e;--adult:#c8102e;--adv:#1c1c1c;--cal-bg:#ffffff;--cell-bg:#f5f5f3;--card-bg:#ffffff;
+--ev-stage:#c8102e;--ev-comp:#b98b2e;--ev-exam:#3d5a80;--club-shade:linear-gradient(90deg,rgba(16,16,16,.85) 0%,rgba(16,16,16,.25) 60%,rgba(16,16,16,0) 100%);--foot-bg:#1c1c1c;--foot-text:#d6d6d2;
+--tile-bg:#ffffff;--tile-text:#1c1c1c;--tile-label:#c8102e;--tile-shadow:0 0 0 1px #1c1c1c;--quick-lift:0px}
+.nav{border-bottom:1px solid #1c1c1c}
+.hero{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(28px,3vw,40px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) auto;gap:clamp(20px,4vw,56px);align-items:center}
+.hero h1{font-weight:900;font-size:clamp(42px,5.4vw,86px);line-height:1.05;margin:0 0 22px;letter-spacing:.01em}
+.hero p{font-size:clamp(18px,1.5vw,21px);color:#4a4a48;max-width:42ch;margin:0 0 30px}
+.hero .btn-ghost{color:#1c1c1c}
+.hero .ink{position:relative}.hero .ink img{width:100%;aspect-ratio:4/3;max-height:430px;object-fit:cover;filter:grayscale(1) contrast(1.08)}
+.hero .ink::after{content:"";position:absolute;right:-18px;bottom:-18px;width:86px;height:86px;border-radius:50%;background:#c8102e;mix-blend-mode:multiply}
+.hero .tate{writing-mode:vertical-rl;font-size:clamp(44px,5vw,80px);font-weight:900;letter-spacing:.15em;line-height:1;margin:0;color:#1c1c1c}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.hero .tate{display:none}}
+.day,.calendar,.event{border:1px solid #1c1c1c}
+</style></head>
+<body><header class="nav"><div class="wrap"><a class="brand" href="#"><img src="img/logo-poseidon-320.webp" alt="">SKIF Poseidon</a>
+<nav class="links"><a href="#cours">Cours</a><a href="#agenda">Agenda</a><a href="#">Le club</a><a href="#">Contact</a></nav>
+<div class="langs"><span>FR</span><span>NL</span><span>EN</span></div><a class="btn btn-primary" href="#">Cours d'essai</a></div></header><section class="hero"><div class="wrap"><div><h1>Karaté Shotokan à Woluwe-Saint-Lambert</h1>
+<p>Le karaté traditionnel de la SKIF, enseigné au complexe Poseidon. Enfants dès 6 ans, ados et adultes.</p>
+<div class="btn-row"><a class="btn btn-primary" href="#cours">Trouver mon cours</a><a class="btn btn-ghost" href="#">Cours d'essai</a></div></div>
+<div class="ink"><img src="img/dojo-kamiza-1600.webp" alt="Trois ceintures noires du dojo Poseidon devant le kamiza"></div><p class="tate" lang="ja" aria-label="Karaté-dō">空手道</p></div></section><section class="quick" aria-label="Accès rapide"><div class="wrap">
+<a class="tile" href="#cours" data-next-class><small>Prochain cours</small><strong>-</strong><span></span></a>
+<a class="tile" href="#agenda" data-next-event><small>Prochain événement</small><strong>-</strong><span></span></a>
+<a class="tile" href="#infos"><small>Où</small><strong>Complexe Poseidon</strong><span>Av. des Vaillants 2, Woluwe</span></a>
+<a class="tile cta" href="#"><small>Premier cours</small><strong>Demander un cours d'essai</strong><span>Réponse du club par e-mail</span></a>
+</div></section>
+<section id="cours" class="sec-cours"><div class="wrap">
+  <h2>Trouver mon cours</h2>
+  <p class="lead">Touchez une tranche d'âge : la semaine ne met en avant que les cours qui conviennent. Horaires publiés par SKIF Belgium, à confirmer par le club.</p>
+  <div data-timetable></div>
+  <div class="legend"><span><i style="background:var(--kids)"></i>Enfants</span><span><i style="background:var(--teen)"></i>Ados</span><span><i style="background:var(--adult)"></i>Adultes</span><span><i style="background:var(--adv)"></i>Avancés (kata, kumite)</span></div>
+</div></section>
+<section id="agenda" class="sec-agenda"><div class="wrap">
+  <h2>Agenda</h2>
+  <p class="lead">Stages, compétitions, examens et fermetures du dojo, sur le mois ou en liste.</p>
+  <div class="agenda-grid">
+    <div class="calendar" data-calendar></div>
+    <div><div class="events" data-upcoming></div><p class="btn-row"><a class="btn btn-ghost" href="#">S'abonner au calendrier</a></p></div>
+  </div>
+</div></section>
+<section class="club"><img src="img/kancho-2019-1400.webp" alt="Kancho Nobuaki Kanazawa à genoux devant la bannière de la SKIF Belgium, au dojo Poseidon en 2019">
+  <div class="over"><div class="wrap">
+    <h2>Le club</h2>
+    <p style="max-width:62ch;font-size:19px;margin:0">Cours dirigés par Sensei Achour Bakkioui, 7e dan, responsable de l'arbitrage francophone de SKIF Belgium.</p>
+    <div class="lineage"><div><strong>SKIF</strong>Fondée à Tokyo en 1978 par Hirokazu Kanazawa, 138 pays.</div><div><strong>SKIF Belgium</strong>La fédération nationale, asbl depuis 1987.</div><div><strong>SKIF Poseidon</strong>Votre dojo à Woluwe-Saint-Lambert.</div></div>
+  </div></div>
+</section>
+<section class="infos" id="infos"><div class="wrap infos-grid">
+  <div><h2>Infos pratiques</h2><address><strong>Complexe sportif du Poseidon</strong><br>Avenue des Vaillants 2, 1200 Woluwe-Saint-Lambert<br>+32 488 25 65 71<br>skif.poseidon@hotmail.com</address>
+  <div class="btn-row"><a class="btn btn-primary" href="#">Itinéraire</a><a class="btn btn-ghost" href="#">Cours d'essai</a></div></div>
+  <div class="map"><img src="img/map-poseidon.webp" alt="Plan du quartier du complexe Poseidon" width="640" height="400"></div>
+</div></section>
+<footer><div class="wrap"><div><strong>SKIF Poseidon</strong><br>Club membre de SKIF Belgium</div><div>Mentions légales · Vie privée · Accessibilité</div><div>FR NL EN</div></div></footer>
+<script src="app.js"></script>
+</body></html>
