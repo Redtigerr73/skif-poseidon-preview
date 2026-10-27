@@ -9,6 +9,7 @@ header p{font-size:clamp(18px,1.6vw,21px);max-width:62ch;margin:0;color:#d6d8dd}
 .steps{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;padding:0;list-style:none}
 .steps li{background:#262a30;border-radius:14px;padding:12px 18px;font-size:17px}
 .steps b{color:#ffcf5a;margin-right:6px}
+.ask{background:#15171a;color:#fff;border-radius:22px;padding:clamp(22px,4vw,40px);margin:28px 0}.ask h2{margin:0 0 8px;font-size:clamp(26px,3vw,38px)}.ask p{margin:0;color:#d6d8dd;max-width:62ch}
 .same{background:#fff;border-radius:18px;padding:18px 22px;margin:28px 0 8px;font-size:17px}
 .card{background:#fff;border-radius:22px;margin:28px 0;overflow:hidden;box-shadow:0 18px 40px -30px rgba(0,0,0,.4)}
 .card-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;padding:22px clamp(18px,3vw,32px)}
@@ -34,8 +35,8 @@ footer{padding:40px 0 60px;color:#4a4f57}
 </style></head><body>
 <header><div class="wrap"><h1>Choisissez le style du nouveau site</h1>
 <p>Cinq univers pour le site du SKIF Poseidon. Regardez les images, ouvrez les maquettes sur votre téléphone, puis dites-nous votre préféré.</p>
-<ol class="steps"><li><b>1</b>Regardez les cinq univers</li><li><b>2</b>Ouvrez celui qui vous plaît</li><li><b>3</b>Envoyez la lettre à Mohamad</li></ol></div></header>
-<main class="wrap"><p class="same"><strong>Dans les cinq univers :</strong> le même contenu, la grille des cours filtrable par âge, l'agenda du mois, le cours d'essai, les trois langues et l'adaptation au téléphone. Seuls les couleurs, la typographie et l'ambiance changent. On peut aussi mélanger (par exemple les couleurs de B avec les titres de A).</p>
+<ol class="steps"><li><b>1</b>Regardez les cinq univers</li><li><b>2</b>Ouvrez celui qui vous plaît</li><li><b>3</b>Dites-nous quelle maquette vous préférez</li></ol></div></header>
+<main class="wrap"><p class="same"><strong>Dans les cinq univers :</strong> le même contenu, la grille des cours filtrable par âge, l'agenda du mois, le cours d'essai, les trois langues et l'adaptation au téléphone. Seuls les couleurs, la typographie et l'ambiance changent. On peut aussi mélanger (par exemple les couleurs de B avec les titres de A). Les photos sont placées au hasard pour l'instant : dites-nous lesquelles vous préférez, tout peut être changé.</p>
 <article class="card" style="--c:#d7141a" id="a">
 <div class="card-head"><div class="letter">A</div><div class="title"><h2>Rouge Poseidon</h2><p>Énergique, comme une affiche de compétition. Grande photo, rouge et noir.</p></div>
 <div><div class="swatches" aria-label="Couleurs"><span style="background:#d7141a" title="#d7141a"></span><span style="background:#16161a" title="#16161a"></span><span style="background:#ffffff" title="#ffffff"></span><span style="background:#e8a100" title="#e8a100"></span><span style="background:#0f8a6c" title="#0f8a6c"></span></div><div class="font">Police : Barlow Condensed</div></div></div>
@@ -66,5 +67,6 @@ footer{padding:40px 0 60px;color:#4a4f57}
 <div class="shots"><img src="shots/e-ecran.webp" alt="Univers E, premier écran sur ordinateur" loading="lazy"><div class="phone"><img src="shots/e-mobile.webp" alt="Univers E sur téléphone" loading="lazy"></div></div>
 <div class="more"><figure><img src="shots/e-cours.webp" alt="Grille de la semaine, univers E" loading="lazy"><figcaption>La semaine des cours, filtrable par âge</figcaption></figure>
 <figure><img src="shots/e-agenda.webp" alt="Agenda du mois, univers E" loading="lazy"><figcaption>L'agenda du mois et les prochains rendez-vous</figcaption></figure></div>
-<div class="actions"><a class="btn" href="e.html">Essayer la maquette E</a></div></article></main>
+<div class="actions"><a class="btn" href="e.html">Essayer la maquette E</a></div></article>
+<section class="ask"><h2>Quelle maquette préférez-vous ?</h2><p>Répondez simplement avec la lettre (A, B, C, D ou E). Dites-nous aussi ce que vous aimez ou pas : les couleurs, les titres, les photos. On peut tout ajuster.</p></section></main>
 <footer><div class="wrap">Maquettes de démonstration. Horaires publiés par SKIF Belgium, à confirmer par le club. Photos : site du club SKIF Poseidon.</div></footer></body></html>

@@ -6,7 +6,8 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);fon
 img{max-width:100%;display:block}
 a{color:inherit}
 .wrap{width:100%;max-width:1440px;margin:0 auto;padding-inline:clamp(16px,4vw,56px)}
-.mock-tag{position:fixed;z-index:50;left:12px;bottom:12px;background:#111;color:#fff;font:600 12px/1 system-ui;padding:8px 10px;border-radius:6px;opacity:.85}
+.back{position:fixed;z-index:50;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:#111;color:#fff;font:700 15px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 0 0 2px #fff,0 8px 24px rgba(0,0,0,.35)}
+.back:hover{background:#000}@media (max-width:640px){.back{left:8px;bottom:8px;padding:0 12px;font-size:13px}.back .long{display:none}}.back:focus-visible{outline:3px solid #ffcf5a;outline-offset:3px}
 /* nav */
 .nav{position:sticky;top:0;z-index:20;background:var(--nav-bg);color:var(--nav-text);backdrop-filter:saturate(1.4) blur(10px)}
 .nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
@@ -16,6 +17,7 @@ a{color:inherit}
 @media (max-width:640px){.brand{font-size:18px;gap:8px}.brand img{width:38px;height:38px}.nav .wrap{gap:12px;height:64px}.nav .btn{min-height:44px;padding:0 16px;font-size:15px}}
 .links{display:flex;gap:26px;margin-left:auto;font-weight:600;font-size:16px}
 .links a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;opacity:.9}.links a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
+@media (max-width:900px){.links{display:none}.langs{margin-left:auto}}
 .langs{display:flex;gap:10px;font-size:14px;font-weight:700;opacity:.8}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:var(--radius-btn);font-weight:700;font-size:16px;text-decoration:none;border:2px solid transparent;white-space:nowrap;transition:transform .15s}
 .btn:active{transform:translateY(1px)}
@@ -48,7 +50,8 @@ h2{font-family:var(--display);font-size:clamp(30px,3.4vw,52px);line-height:1.04;
 .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
 @media (max-width:1180px){.week{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){
-  .chips{flex-direction:column;align-items:stretch}
+  .chips{flex-direction:column;flex-wrap:nowrap;align-items:stretch}
+  .chip-row{min-width:0;max-width:calc(100% + 2 * clamp(16px,4vw,56px))}
   .chip-row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * clamp(16px,4vw,56px));padding-inline:clamp(16px,4vw,56px)}
   .week{grid-template-columns:1fr;gap:10px}
   .day{padding:12px 14px;gap:6px}
@@ -144,7 +147,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:24px 60px;justify-content:space-bet
 @media (max-width:860px){.hero{grid-template-columns:1fr;max-height:none}.hero .photo{min-height:200px;max-height:220px;order:-1}.hero .text::after{display:none}.hero .kanji{display:none}.hero .text{padding-block:24px 76px}}
 .sec-agenda{background:#1c2850;color:#f3f1ec}.sec-agenda .lead{color:#c3c9de}.sec-agenda .btn-ghost{color:#fff}.sec-agenda .calendar{color:#141b33}
 </style></head>
-<body><header class="nav"><div class="wrap"><a class="brand" href="#"><img src="img/logo-poseidon-320.webp" alt="">SKIF Poseidon</a>
+<body><a class="back" href="index.html"><span aria-hidden="true">&lsaquo;</span><span>Retour<span class="long"> aux 5 styles</span></span></a><header class="nav"><div class="wrap"><a class="brand" href="#"><img src="img/logo-poseidon-320.webp" alt="">SKIF Poseidon</a>
 <nav class="links"><a href="#cours">Cours</a><a href="#agenda">Agenda</a><a href="#">Le club</a><a href="#">Contact</a></nav>
 <div class="langs"><span>FR</span><span>NL</span><span>EN</span></div><a class="btn btn-primary" href="#">Cours d'essai</a></div></header><section class="hero"><div class="text"><h1>Karaté Shotokan à Woluwe</h1>
 <p>Le karaté traditionnel de la SKIF, enseigné au complexe Poseidon. Enfants dès 6 ans, ados et adultes, du premier cours à la ceinture noire.</p>
