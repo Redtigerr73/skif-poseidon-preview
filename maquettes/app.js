@@ -1,4 +1,5 @@
-/* Shared mockup logic: weekly timetable with filter chips + month calendar. Real club data (skifb.be capture, to be confirmed). */
+/* Shared mockup logic: weekly timetable, month calendar with spanning event bars, upcoming list, quick tiles.
+   Real club data (skifb.be capture, to be confirmed). Throwaway mockup code: static data only. */
 const DAYS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 const CLASSES = [
 	{ d: 0, s: "21:00", e: "22:00", t: "Adultes", sub: "dès 17 ans", g: "adult", age: [17, 99], rank: 0 },
@@ -13,43 +14,56 @@ const CLASSES = [
 	{ d: 6, s: "11:00", e: "12:00", t: "Kata", sub: "7e kyu et +", g: "adv", age: [10, 99], rank: 3 },
 ];
 const FILTERS = [
-	{ id: "all", label: "Tous les cours" },
+	{ id: "all", label: "Tous" },
 	{ id: "6-8", label: "6-8 ans", age: 7 },
 	{ id: "9-12", label: "9-12 ans", age: 10 },
 	{ id: "13-16", label: "13-16 ans", age: 14 },
 	{ id: "adult", label: "Adultes", age: 30 },
 ];
 const EVENTS = [
-	{ start: "2026-10-30", end: "2026-10-30", time: "18:30 - 20:30", title: "Stage Castrique Sensei et Di Mecola Sensei", place: "Hall sportif Hanck, Sambreville", type: "stage" },
-	{ start: "2026-11-09", end: "2026-11-15", time: "", title: "15e Championnats du monde SKIF", place: "Antalya, Türkiye", type: "competition" },
-	{ start: "2026-12-06", end: "2026-12-06", time: "09:30 - 16:00", title: "Examen national et cours instructeurs", place: "Honbu Dojo, Mortsel", type: "exam" },
+	{ id: "e1", start: "2026-10-30", end: "2026-10-30", time: "18:30 - 20:30", title: "Stage Castrique Sensei et Di Mecola Sensei", short: "Stage Castrique", place: "Hall sportif Hanck, Sambreville", type: "stage" },
+	{ id: "e2", start: "2026-11-09", end: "2026-11-15", time: "", title: "15e Championnats du monde SKIF", short: "Mondiaux SKIF, Antalya", place: "Antalya, Türkiye", type: "competition" },
+	{ id: "e3", start: "2026-12-06", end: "2026-12-06", time: "09:30 - 16:00", title: "Examen national et cours instructeurs", short: "Examen national", place: "Honbu Dojo, Mortsel", type: "exam" },
 ];
 const TYPE_LABEL = { stage: "Stage", competition: "Compétition", exam: "Examen", closure: "Fermeture" };
 const MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+const MONTHS_ABBR = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+const NOW = new Date(2026, 9, 27, 19, 0); // mockup clock
 
-function el(tag, cls, html) {
+function el(tag, cls, text) {
 	const n = document.createElement(tag);
 	if (cls) n.className = cls;
-	if (html !== undefined) n.innerHTML = html;
+	if (text !== undefined) n.textContent = text;
 	return n;
 }
+const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const parse = (s) => new Date(s + "T12:00");
 
+/* ---------- Timetable: only days that have classes ---------- */
 function renderTimetable(root) {
 	let active = "all", beginner = false;
-	const chips = el("div", "chips");
+	const bar = el("div", "chips");
+	const row = el("div", "chip-row");
 	FILTERS.forEach((f) => {
 		const b = el("button", "chip", f.label);
 		b.type = "button";
-		b.setAttribute("aria-pressed", f.id === active);
-		b.onclick = () => { active = f.id; chips.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", c === b)); draw(); };
-		chips.append(b);
+		b.setAttribute("aria-pressed", String(f.id === active));
+		b.onclick = () => { active = f.id; row.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c === b))); draw(); };
+		row.append(b);
 	});
-	const toggle = el("label", "toggle", '<input type="checkbox"> Je débute');
-	toggle.querySelector("input").onchange = (e) => { beginner = e.target.checked; draw(); };
-	chips.append(toggle);
+	const toggle = el("label", "toggle");
+	const box = el("input");
+	box.type = "checkbox";
+	box.onchange = () => { beginner = box.checked; draw(); };
+	toggle.append(box, document.createTextNode(" Je débute"));
+	bar.append(row, toggle);
+	const count = el("p", "match-count");
+	count.setAttribute("aria-live", "polite");
 	const grid = el("div", "week");
-	root.append(chips, grid);
+	const note = el("p", "week-note", "Pas de cours le mardi et le jeudi.");
+	root.append(bar, count, grid, note);
 
+	const days = [...new Set(CLASSES.map((c) => c.d))].sort();
 	function fits(c) {
 		const f = FILTERS.find((x) => x.id === active);
 		if (f.age !== undefined && (f.age < c.age[0] || f.age > c.age[1])) return false;
@@ -57,77 +71,117 @@ function renderTimetable(root) {
 		return true;
 	}
 	function draw() {
-		grid.innerHTML = "";
-		DAYS.forEach((day, i) => {
+		grid.replaceChildren();
+		let n = 0;
+		days.forEach((d) => {
 			const col = el("div", "day");
-			const list = CLASSES.filter((c) => c.d === i);
-			col.append(el("div", "day-name", day));
-			if (!list.length) col.append(el("div", "rest", "Repos"));
-			list.forEach((c) => {
-				const card = el("div", `slot g-${c.g}${fits(c) ? "" : " dim"}`, `<span class="slot-time">${c.s} - ${c.e}</span><strong>${c.t}</strong><span>${c.sub}</span>`);
+			col.append(el("h3", "day-name", DAYS[d]));
+			let any = false;
+			CLASSES.filter((c) => c.d === d).forEach((c) => {
+				const ok = fits(c);
+				any = any || ok;
+				if (ok) n++;
+				const card = el("div", `slot g-${c.g}${ok ? "" : " dim"}`);
+				card.append(el("span", "slot-time", `${c.s} - ${c.e}`), el("strong", "", c.t), el("span", "slot-sub", c.sub));
 				col.append(card);
 			});
+			if (!any) col.classList.add("all-dim");
 			grid.append(col);
 		});
+		count.textContent = active === "all" && !beginner ? `${n} cours par semaine` : n ? `${n} cours correspondent` : "Aucun cours ne correspond : contactez-nous, nous trouverons la bonne formule.";
 	}
 	draw();
 }
 
+/* ---------- Month calendar: one bar per event and week, full title once ---------- */
 function renderCalendar(root) {
-	let cur = new Date(2026, 10, 1);
+	let cur = new Date(NOW.getFullYear(), NOW.getMonth() + (NOW.getDate() > 24 ? 1 : 0), 1);
 	const head = el("div", "cal-head");
 	const prev = el("button", "cal-nav", "‹");
 	const next = el("button", "cal-nav", "›");
 	const title = el("h3", "cal-title");
+	const today = el("button", "cal-today", "Aujourd'hui");
 	prev.setAttribute("aria-label", "Mois précédent");
 	next.setAttribute("aria-label", "Mois suivant");
-	head.append(prev, title, next);
-	const grid = el("div", "cal-grid");
-	root.append(head, grid);
+	head.append(prev, title, next, today);
+	const legend = el("div", "cal-legend");
+	Object.entries({ stage: "Stage", competition: "Compétition", exam: "Examen", closure: "Fermeture" }).forEach(([k, v]) => {
+		const s = el("span", `t-${k}`);
+		s.append(el("i"), document.createTextNode(v));
+		legend.append(s);
+	});
+	const dows = el("div", "cal-dows");
+	["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].forEach((d) => dows.append(el("span", "", d)));
+	const weeks = el("div", "cal-weeks");
+	root.append(head, dows, weeks, legend);
 	prev.onclick = () => { cur = new Date(cur.getFullYear(), cur.getMonth() - 1, 1); draw(); };
 	next.onclick = () => { cur = new Date(cur.getFullYear(), cur.getMonth() + 1, 1); draw(); };
-	const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+	today.onclick = () => { cur = new Date(NOW.getFullYear(), NOW.getMonth(), 1); draw(); };
+
 	function draw() {
 		title.textContent = `${MONTHS[cur.getMonth()]} ${cur.getFullYear()}`;
-		grid.innerHTML = "";
-		["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].forEach((d) => grid.append(el("div", "cal-dow", d)));
+		weeks.replaceChildren();
 		const first = new Date(cur.getFullYear(), cur.getMonth(), 1);
-		const offset = (first.getDay() + 6) % 7;
+		const last = new Date(cur.getFullYear(), cur.getMonth() + 1, 0);
 		const start = new Date(first);
-		start.setDate(1 - offset);
-		for (let i = 0; i < 42; i++) {
-			const d = new Date(start);
-			d.setDate(start.getDate() + i);
-			const out = d.getMonth() !== cur.getMonth();
-			const today = iso(d) === "2026-10-27";
-			const cell = el("div", `cal-cell${out ? " out" : ""}${today ? " today" : ""}`, `<span class="cal-num">${d.getDate()}</span>`);
-			EVENTS.filter((e) => iso(d) >= e.start && iso(d) <= e.end).forEach((e) => cell.append(el("span", `cal-ev t-${e.type}`, e.title)));
-			const weekday = (d.getDay() + 6) % 7;
-			if (!out && CLASSES.some((c) => c.d === weekday)) cell.append(el("span", "cal-dot", ""));
-			grid.append(cell);
+		start.setDate(1 - ((first.getDay() + 6) % 7));
+		for (let w = new Date(start); w <= last; w.setDate(w.getDate() + 7)) {
+			const week = el("div", "cal-week");
+			const wStart = iso(w);
+			const end = new Date(w);
+			end.setDate(w.getDate() + 6);
+			const wEnd = iso(end);
+			for (let i = 0; i < 7; i++) {
+				const d = new Date(w);
+				d.setDate(w.getDate() + i);
+				const cell = el("div", `cal-day${d.getMonth() !== cur.getMonth() ? " out" : ""}${iso(d) === iso(NOW) ? " today" : ""}`);
+				cell.style.gridColumn = String(i + 1);
+				cell.append(el("span", "cal-num", String(d.getDate())));
+				week.append(cell);
+			}
+			let lane = 0;
+			EVENTS.filter((e) => e.start <= wEnd && e.end >= wStart).forEach((e) => {
+				// Day index inside the week from calendar dates (not timestamps: avoids DST and rounding errors).
+				const idx = (str) => Math.round((Date.UTC(...str.split("-").map((v, i) => (i === 1 ? v - 1 : +v))) - Date.UTC(w.getFullYear(), w.getMonth(), w.getDate())) / 864e5);
+				const s = e.start < wStart ? 0 : idx(e.start);
+				const en = e.end > wEnd ? 6 : idx(e.end);
+				const b = el("a", `cal-bar t-${e.type}${e.start < wStart ? " cont-l" : ""}${e.end > wEnd ? " cont-r" : ""}`, en - s >= 1 ? e.title : e.short);
+				b.href = `#${e.id}`;
+				b.title = `${TYPE_LABEL[e.type]} : ${e.title}`;
+				b.style.gridColumn = `${s + 1} / ${en + 2}`;
+				b.style.gridRow = String(lane + 2);
+				b.onclick = (ev) => { ev.preventDefault(); const card = document.getElementById(e.id); card?.scrollIntoView({ behavior: "smooth", block: "center" }); card?.classList.add("flash"); setTimeout(() => card?.classList.remove("flash"), 1400); };
+				week.append(b);
+				lane++;
+			});
+			weeks.append(week);
 		}
 	}
 	draw();
 }
 
 function renderUpcoming(root) {
-	EVENTS.forEach((e) => {
-		const s = new Date(e.start + "T12:00");
-		const en = new Date(e.end + "T12:00");
-		const range = e.start === e.end ? e.time : `jusqu'au ${en.getDate()} ${MONTHS[en.getMonth()]}`;
-		root.append(el("article", `event t-${e.type}`, `<div class="date-tile"><span class="dd">${s.getDate()}</span><span class="mm">${MONTHS[s.getMonth()].slice(0, 4)}.</span></div><div class="event-body"><span class="event-type">${TYPE_LABEL[e.type]}</span><h4>${e.title}</h4><p>${range}<br>${e.place}</p></div>`));
+	EVENTS.filter((e) => parse(e.end) >= NOW).forEach((e) => {
+		const s = parse(e.start), en = parse(e.end);
+		const a = el("article", `event t-${e.type}`);
+		a.id = e.id;
+		const tile = el("div", "date-tile");
+		tile.append(el("span", "dd", String(s.getDate())), el("span", "mm", MONTHS_ABBR[s.getMonth()]));
+		const body = el("div", "event-body");
+		body.append(el("span", "event-type", TYPE_LABEL[e.type]), el("h4", "", e.title));
+		const when = e.start === e.end ? e.time : `Du ${s.getDate()} au ${en.getDate()} ${MONTHS[en.getMonth()]}`;
+		const p = el("p", "", when);
+		p.append(document.createElement("br"), document.createTextNode(e.place));
+		body.append(p);
+		a.append(tile, body);
+		root.append(a);
 	});
 }
 
-document.querySelectorAll("[data-timetable]").forEach(renderTimetable);
-document.querySelectorAll("[data-calendar]").forEach(renderCalendar);
-document.querySelectorAll("[data-upcoming]").forEach(renderUpcoming);
-
-/* Quick-access tiles: next class and next event computed from "now" (mockup clock fixed to 27/10/2026 19:00). */
-(function () {
-	const now = new Date(2026, 9, 27, 19, 0);
-	const today = (now.getDay() + 6) % 7;
-	const mins = now.getHours() * 60 + now.getMinutes();
+/* ---------- Quick tiles: next class, next event ---------- */
+function quickTiles() {
+	const today = (NOW.getDay() + 6) % 7;
+	const mins = NOW.getHours() * 60 + NOW.getMinutes();
 	const toMin = (t) => parseInt(t.slice(0, 2), 10) * 60 + parseInt(t.slice(3), 10);
 	let best = null;
 	CLASSES.forEach((c) => {
@@ -143,10 +197,15 @@ document.querySelectorAll("[data-upcoming]").forEach(renderUpcoming);
 		nc.querySelector("span").textContent = `${best.c.t}, ${best.c.sub}`;
 	}
 	const ne = document.querySelector("[data-next-event]");
-	const ev = EVENTS.find((e) => new Date(e.end + "T23:59") >= now);
+	const ev = EVENTS.find((e) => parse(e.end) >= NOW);
 	if (ne && ev) {
-		const s = new Date(ev.start + "T12:00");
+		const s = parse(ev.start);
 		ne.querySelector("strong").textContent = `${s.getDate()} ${MONTHS[s.getMonth()]}`;
-		ne.querySelector("span").textContent = ev.title;
+		ne.querySelector("span").textContent = ev.short;
 	}
-})();
+}
+
+document.querySelectorAll("[data-timetable]").forEach(renderTimetable);
+document.querySelectorAll("[data-calendar]").forEach(renderCalendar);
+document.querySelectorAll("[data-upcoming]").forEach(renderUpcoming);
+quickTiles();

@@ -12,60 +12,89 @@ a{color:inherit}
 .nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:var(--brand-track)}
 .brand img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff}
+.brand{white-space:nowrap;min-height:44px}
+@media (max-width:640px){.brand{font-size:18px;gap:8px}.brand img{width:38px;height:38px}.nav .wrap{gap:12px;height:64px}.nav .btn{min-height:44px;padding:0 16px;font-size:15px}}
 .links{display:flex;gap:26px;margin-left:auto;font-weight:600;font-size:16px}
-.links a{text-decoration:none;opacity:.9}.links a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
+.links a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;opacity:.9}.links a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
 .langs{display:flex;gap:10px;font-size:14px;font-weight:700;opacity:.8}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:var(--radius-btn);font-weight:700;font-size:16px;text-decoration:none;border:2px solid transparent;white-space:nowrap;transition:transform .15s}
 .btn:active{transform:translateY(1px)}
 .btn-primary{background:var(--accent);color:var(--on-accent)}
 .btn-ghost{border-color:currentColor}
 /* sections */
-section{padding-block:clamp(56px,7vw,104px)}
-h2{font-family:var(--display);font-size:clamp(34px,4.2vw,60px);line-height:1.02;margin:0 0 14px;letter-spacing:var(--title-track);text-transform:var(--title-case);font-weight:var(--title-weight)}
-.lead{font-size:clamp(17px,1.4vw,20px);max-width:62ch;margin:0 0 32px;color:var(--muted)}
+section{padding-block:clamp(40px,5vw,80px)}
+h2{font-family:var(--display);font-size:clamp(30px,3.4vw,52px);line-height:1.04;margin:0 0 10px;letter-spacing:var(--title-track);text-transform:var(--title-case);font-weight:var(--title-weight)}
+.lead{font-size:clamp(16px,1.25vw,19px);max-width:62ch;margin:0 0 22px;color:var(--muted)}
 /* timetable */
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;align-items:center}
-.chip{min-height:44px;padding:0 20px;border-radius:999px;border:2px solid var(--chip-border);background:transparent;color:var(--text);font:600 15px var(--body);cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-bottom:10px}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap}
+.chip{min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--chip-border);background:transparent;color:var(--text);font:600 15px var(--body);cursor:pointer;white-space:nowrap}
 .chip[aria-pressed=true]{background:var(--chip-on);border-color:var(--chip-on);color:var(--chip-on-text)}
-.toggle{display:inline-flex;gap:8px;align-items:center;font-weight:600;margin-left:8px;cursor:pointer}
-.toggle input{width:20px;height:20px;accent-color:var(--accent)}
-.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px}
-.day{display:flex;flex-direction:column;gap:10px;min-height:200px;padding:14px;border-radius:var(--radius);background:var(--day-bg)}
-.day-name{font-family:var(--display);font-weight:800;font-size:19px;text-transform:var(--title-case);letter-spacing:var(--title-track)}
-.rest{margin-top:auto;margin-bottom:auto;text-align:center;font-size:14px;color:var(--muted);opacity:.7}
-.slot{display:flex;flex-direction:column;gap:2px;padding:12px 12px 12px 14px;border-radius:calc(var(--radius) - 4px);background:var(--slot-bg);border-left:6px solid var(--c);transition:opacity .2s,filter .2s;font-size:15px;line-height:1.3}
-.slot strong{font-size:17px}
-.slot-time{font-weight:700;font-variant-numeric:tabular-nums;color:var(--c-text,var(--c))}
-.slot.dim{opacity:.22;filter:grayscale(1)}
+.chip:focus-visible,.cal-nav:focus-visible,.cal-today:focus-visible,.btn:focus-visible,.tile:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.toggle{display:inline-flex;gap:8px;align-items:center;font-weight:600;min-height:44px;cursor:pointer}
+.toggle input{width:22px;height:22px;accent-color:var(--accent)}
+.match-count{margin:0 0 14px;font-weight:600;color:var(--muted);font-size:15px}
+.week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.day{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:var(--radius);background:var(--day-bg)}
+.day-name{margin:0 0 2px;font-family:var(--display);font-weight:800;font-size:20px;text-transform:var(--title-case);letter-spacing:var(--title-track)}
+.slot{display:grid;gap:2px;padding:12px 14px;border-radius:calc(var(--radius) - 4px);background:var(--slot-bg);border-left:6px solid var(--c);transition:opacity .2s;font-size:15px;line-height:1.3}
+.slot strong{font-size:18px}
+.slot-time{font-weight:700;font-variant-numeric:tabular-nums}
+.slot-sub{color:var(--muted)}
+.slot.dim{opacity:.25}
+.week-note{margin:14px 0 0;font-size:15px;color:var(--muted)}
 .g-kids{--c:var(--kids)}.g-teen{--c:var(--teen)}.g-adult{--c:var(--adult)}.g-adv{--c:var(--adv)}
-.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:14px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font-size:14px;color:var(--muted)}
 .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
-@media (max-width:1100px){.week{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media (max-width:640px){.week{grid-template-columns:1fr}.day:has(.rest){display:none}.day{min-height:0}.links,.langs{display:none}}
+@media (max-width:1180px){.week{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){
+  .chips{flex-direction:column;align-items:stretch}
+  .chip-row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * clamp(16px,4vw,56px));padding-inline:clamp(16px,4vw,56px)}
+  .week{grid-template-columns:1fr;gap:10px}
+  .day{padding:12px 14px;gap:6px}
+  .day.all-dim{display:none}
+  .slot.dim{display:none}
+  .slot{grid-template-columns:auto 1fr;column-gap:12px;align-items:baseline;padding:10px 12px}
+  .slot-time{grid-row:span 2}
+  .links,.langs{display:none}
+}
 /* agenda */
-.agenda-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);gap:clamp(20px,3vw,44px);align-items:start}
-@media (max-width:980px){.agenda-grid{grid-template-columns:1fr}}
-.calendar{background:var(--cal-bg);border-radius:var(--radius);padding:clamp(14px,2vw,26px)}
-.cal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.cal-title{flex:1;text-align:center;margin:0;font-family:var(--display);font-size:clamp(22px,2vw,30px);text-transform:capitalize}
-.cal-nav{width:44px;height:44px;border-radius:999px;border:2px solid var(--chip-border);background:transparent;color:var(--text);font-size:22px;cursor:pointer}
-.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.cal-dow{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding:4px 0}
-.cal-cell{min-height:96px;border-radius:10px;background:var(--cell-bg);padding:6px;display:flex;flex-direction:column;gap:4px;position:relative}
-.cal-cell.out{opacity:.35}
-.cal-cell.today{outline:3px solid var(--accent);outline-offset:-3px}
-.cal-num{font-weight:700;font-size:14px}
-.cal-ev{display:block;font-size:12px;line-height:1.25;padding:4px 6px;border-radius:6px;color:#fff;background:var(--ev);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.cal-dot{position:absolute;right:8px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--muted);opacity:.5}
-.t-stage{--ev:var(--ev-stage)}.t-competition{--ev:var(--ev-comp)}.t-exam{--ev:var(--ev-exam)}
-@media (max-width:640px){.cal-cell{min-height:56px}.cal-ev{font-size:0;height:8px;padding:0}}
-.events{display:flex;flex-direction:column;gap:14px}
-.event{display:flex;gap:16px;align-items:stretch;padding:16px;border-radius:var(--radius);background:var(--card-bg)}
-.date-tile{flex:0 0 74px;border-radius:calc(var(--radius) - 4px);background:var(--ev);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}
-.dd{font-family:var(--display);font-size:34px;font-weight:800;line-height:1}
-.mm{font-size:13px;font-weight:700;text-transform:uppercase}
+.agenda-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(300px,1fr);gap:clamp(18px,2.5vw,36px);align-items:start}
+@media (max-width:1024px){.agenda-grid{grid-template-columns:1fr}}
+.calendar{background:var(--cal-bg);border-radius:var(--radius);padding:clamp(12px,1.6vw,22px)}
+.cal-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cal-title{flex:1;text-align:center;margin:0;font-family:var(--display);font-size:clamp(20px,1.8vw,28px);text-transform:capitalize}
+.cal-nav{width:44px;height:44px;border-radius:999px;border:2px solid var(--chip-border);background:transparent;color:inherit;font-size:22px;line-height:1;cursor:pointer;flex:0 0 auto}
+.cal-today{min-height:44px;padding:0 14px;border-radius:999px;border:2px solid var(--chip-border);background:transparent;color:inherit;font:600 14px var(--body);cursor:pointer}
+.cal-dows{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-bottom:4px}
+.cal-dows span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center}
+.cal-weeks{display:grid;gap:4px}
+.cal-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:26px auto auto 1fr;column-gap:4px;row-gap:3px;min-height:clamp(64px,9vh,92px);position:relative}
+.cal-day{grid-row:1 / -1;border-radius:8px;background:var(--cell-bg);padding:4px 6px}
+.cal-day.out{opacity:.4}
+.cal-num{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:999px;font-weight:700;font-size:13px}
+.cal-day.today .cal-num{background:var(--accent);color:var(--on-accent)}
+.cal-bar{position:relative;z-index:1;margin:0 2px;padding:3px 8px;border-radius:6px;background:var(--ev);color:#fff;font-size:12.5px;font-weight:600;line-height:1.25;text-decoration:none;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-height:22px}
+.cal-bar.cont-l{border-top-left-radius:0;border-bottom-left-radius:0;margin-left:-4px}
+.cal-bar.cont-r{border-top-right-radius:0;border-bottom-right-radius:0;margin-right:-4px}
+.cal-bar:hover{filter:brightness(1.08)}
+.cal-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:13px;color:var(--muted)}
+.cal-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--ev);margin-right:6px;vertical-align:-1px}
+.t-stage{--ev:var(--ev-stage)}.t-competition{--ev:var(--ev-comp)}.t-exam{--ev:var(--ev-exam)}.t-closure{--ev:var(--ev-closure,#6b7280)}
+@media (max-width:640px){
+  .cal-head{flex-wrap:wrap}.cal-title{order:-1;flex-basis:100%;text-align:left}.cal-today{margin-left:auto}
+  .cal-week{min-height:52px;grid-template-rows:24px auto auto 1fr}
+  .cal-day{padding:3px 4px}
+  .cal-bar{font-size:0;min-height:6px;height:6px;padding:0;margin:0 1px}
+}
+.events{display:flex;flex-direction:column;gap:12px}
+.event{display:flex;gap:16px;align-items:stretch;padding:14px;border-radius:var(--radius);background:var(--card-bg);transition:box-shadow .3s}
+.event.flash{box-shadow:0 0 0 3px var(--accent)}
+.date-tile{flex:0 0 72px;border-radius:calc(var(--radius) - 4px);background:var(--ev);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}
+.dd{font-family:var(--display);font-size:32px;font-weight:800;line-height:1}
+.mm{font-size:14px;font-weight:700}
 .event-type{font-size:13px;font-weight:700;color:var(--ev)}
-.event h4{margin:2px 0 4px;font-size:18px;line-height:1.25}
+.event h4{margin:2px 0 4px;font-size:17px;line-height:1.25}
 .event p{margin:0;font-size:15px;color:var(--muted)}
 /* club band */
 .club{position:relative;color:#fff;padding:0}
@@ -104,27 +133,27 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:24px 60px;justify-content:space-bet
 --chip-border:#b9c0d6;--chip-on:#1c2850;--chip-on-text:#fff;--day-bg:#ffffff;--slot-bg:#f3f5fa;
 --kids:#f0a202;--teen:#2a9d8f;--adult:#e2401f;--adv:#1c2850;--cal-bg:#ffffff;--cell-bg:#f3f5fa;--card-bg:#ffffff;
 --ev-stage:#e2401f;--ev-comp:#c98a00;--ev-exam:#2a6fdb;--club-shade:linear-gradient(0deg,rgba(14,20,44,.92) 0%,rgba(14,20,44,.35) 55%,rgba(14,20,44,0) 100%);--foot-bg:#141b33;--foot-text:#d9ddea;--tile-bg:#ffffff;--tile-text:#141b33;--tile-label:#e2401f;--tile-shadow:0 14px 30px -18px rgba(20,27,51,.45);--quick-lift:-48px}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);min-height:min(58vh,540px);max-height:620px;padding:0;background:#1c2850;color:#f3f1ec;overflow:hidden}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);min-height:min(50vh,500px);max-height:560px;padding:0;background:#1c2850;color:#f3f1ec;overflow:hidden}
 .hero .text{display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4vw,64px) clamp(16px,4vw,56px) clamp(72px,8vw,96px);position:relative}
-.hero .text::after{content:"";position:absolute;width:clamp(120px,14vw,220px);aspect-ratio:1;border-radius:50%;background:#e2401f;right:calc(clamp(120px,14vw,220px) / -2);top:16%;z-index:2}
-.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(40px,4.6vw,76px);line-height:.98;letter-spacing:-.03em;margin:0 0 22px}
+.hero .text::after{content:"";position:absolute;width:clamp(120px,14vw,220px);aspect-ratio:1;border-radius:50%;background:#e2401f;right:calc(clamp(120px,14vw,220px) / -2);top:auto;bottom:22%;z-index:2}
+.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,min(4.4vw,9vh),76px);line-height:.98;letter-spacing:-.03em;margin:0 0 22px}
 .hero p{font-size:clamp(18px,1.5vw,21px);max-width:44ch;margin:0 0 30px;color:#cfd5ea}
 .hero .btn-ghost{color:#f3f1ec}
 .hero .photo{position:relative}.hero .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .hero .kanji{font-size:15px;letter-spacing:.4em;color:#9aa6cf;margin-top:34px}
-@media (max-width:860px){.hero{grid-template-columns:1fr;max-height:none}.hero .photo{min-height:320px;order:-1}.hero .text::after{display:none}}
+@media (max-width:860px){.hero{grid-template-columns:1fr;max-height:none}.hero .photo{min-height:200px;max-height:220px;order:-1}.hero .text::after{display:none}.hero .kanji{display:none}.hero .text{padding-block:24px 76px}}
 .sec-agenda{background:#1c2850;color:#f3f1ec}.sec-agenda .lead{color:#c3c9de}.sec-agenda .btn-ghost{color:#fff}.sec-agenda .calendar{color:#141b33}
 </style></head>
 <body><header class="nav"><div class="wrap"><a class="brand" href="#"><img src="img/logo-poseidon-320.webp" alt="">SKIF Poseidon</a>
 <nav class="links"><a href="#cours">Cours</a><a href="#agenda">Agenda</a><a href="#">Le club</a><a href="#">Contact</a></nav>
-<div class="langs"><span>FR</span><span>NL</span><span>EN</span></div><a class="btn btn-primary" href="#">Cours d'essai</a></div></header><section class="hero"><div class="text"><h1>Karaté Shotokan à Woluwe-Saint-Lambert</h1>
+<div class="langs"><span>FR</span><span>NL</span><span>EN</span></div><a class="btn btn-primary" href="#">Cours d'essai</a></div></header><section class="hero"><div class="text"><h1>Karaté Shotokan à Woluwe</h1>
 <p>Le karaté traditionnel de la SKIF, enseigné au complexe Poseidon. Enfants dès 6 ans, ados et adultes, du premier cours à la ceinture noire.</p>
 <div class="btn-row"><a class="btn btn-primary" href="#cours">Trouver mon cours</a><a class="btn btn-ghost" href="#">Cours d'essai</a></div><div class="kanji" lang="ja">空手道 · KARATE-DŌ</div></div>
 <div class="photo"><img src="img/dojo-kamiza-1600.webp" alt="Trois ceintures noires du dojo Poseidon devant le kamiza"></div></section><section class="quick" aria-label="Accès rapide"><div class="wrap">
 <a class="tile" href="#cours" data-next-class><small>Prochain cours</small><strong>-</strong><span></span></a>
 <a class="tile" href="#agenda" data-next-event><small>Prochain événement</small><strong>-</strong><span></span></a>
 <a class="tile" href="#infos"><small>Où</small><strong>Complexe Poseidon</strong><span>Av. des Vaillants 2, Woluwe</span></a>
-<a class="tile cta" href="#"><small>Premier cours</small><strong>Demander un cours d'essai</strong><span>Réponse du club par e-mail</span></a>
+<a class="tile cta" href="#"><small>Premier cours</small><strong>Cours d'essai</strong><span>Inscription en 1 minute, réponse du club par e-mail</span></a>
 </div></section>
 <section id="cours" class="sec-cours"><div class="wrap">
   <h2>Trouver mon cours</h2>
