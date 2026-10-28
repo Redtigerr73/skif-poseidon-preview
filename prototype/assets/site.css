@@ -566,3 +566,23 @@ html.lb-open{overflow:hidden}
 .month-preview .btn-row{margin-top:14px}
 .month-help{max-width:52ch;color:var(--muted)}
 .month-help p{margin:0 0 10px}
+
+/* registration steps, readable at a glance */
+.sec-steps{padding-top:clamp(18px,2.5vw,32px);padding-bottom:clamp(18px,2.5vw,32px);background:var(--white)}
+.join-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(18px,3vw,40px);position:relative}
+.join-steps::before{content:"";position:absolute;left:24px;right:24px;top:24px;height:2px;background:var(--indigo)}
+.join-steps li{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-top:62px}
+.step-n{position:absolute;left:0;top:0;width:50px;height:50px;border-radius:50%;background:var(--indigo);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:900}
+.join-steps li:last-child .step-n{background:var(--red-ink)}
+.join-steps h2{font-size:clamp(22px,2vw,28px);margin:0}
+.join-steps p{margin:0;color:var(--muted)}
+.join-steps .step-key{color:var(--ink);font-weight:800}
+.join-steps .btn{margin-top:8px}
+@media (max-width:860px){
+  .join-steps{grid-template-columns:1fr}
+  .join-steps::before{left:24px;right:auto;top:24px;bottom:24px;width:2px;height:auto}
+  .join-steps li{padding:0 0 22px 70px;min-height:56px}
+}
+.checklist{list-style:none;margin:0 0 14px;padding:0;display:grid;border-top:1px solid var(--rule)}
+.checklist li{position:relative;padding:11px 0 11px 34px;border-bottom:1px solid var(--rule)}
+.checklist li::before{content:"";position:absolute;left:2px;top:14px;width:18px;height:18px;border:2px solid var(--indigo);border-radius:2px}
