@@ -58,7 +58,7 @@ document.querySelectorAll("[data-timetable]").forEach((root) => {
 			s.classList.toggle("dim", !ok);
 			if (ok) n++;
 		});
-		root.querySelectorAll(".day").forEach((d) => d.classList.toggle("all-dim", !d.querySelector(".slot:not(.dim)")));
+		root.querySelectorAll(".board-day").forEach((d) => d.classList.toggle("all-dim", !root.querySelector(`.slot[data-day="${d.dataset.day}"]:not(.dim)`)));
 		count.textContent = n ? `${n} cours ${n > 1 ? "correspondent" : "correspond"}` : "";
 		if (!n) {
 			count.textContent = "Aucun cours ne correspond. ";
