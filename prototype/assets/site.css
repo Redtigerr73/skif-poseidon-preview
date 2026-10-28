@@ -546,3 +546,23 @@ html.lb-open{overflow:hidden}
 
 .month-solo{max-width:920px}
 .sec-month+.sec-week{padding-top:8px}
+
+/* small month preview (home, classes): the full agenda is one tap away */
+.month-preview{display:grid;grid-template-columns:minmax(0,460px) minmax(0,1fr);gap:clamp(20px,3.5vw,56px);align-items:start;margin-top:14px}
+@media (max-width:900px){.month-preview{grid-template-columns:minmax(0,1fr)}}
+.calendar.mini{padding:12px}
+.calendar.mini .cal-head{margin-bottom:6px}
+.calendar.mini .cal-title{font-size:20px}
+.calendar.mini .cal-today{font-size:13px;padding:0 10px}
+.calendar.mini .cal-dows span{font-size:12px}
+.calendar.mini .cal-week{min-height:46px;grid-template-rows:30px auto auto auto 1fr}
+.calendar.mini .cal-day{padding:3px 4px}
+.calendar.mini .cal-num{font-size:12.5px;min-width:22px;height:22px}
+.calendar.mini .cal-dots i{width:6px;height:6px}
+.calendar.mini .cal-state{font-size:0}
+.calendar.mini .cal-bar{font-size:0;min-height:5px;height:5px;padding:0;margin:0 1px;pointer-events:none}
+.calendar.mini .cal-empty{font-size:14px}
+.month-preview .cal-legend{font-size:12.5px;gap:4px 12px}
+.month-preview .btn-row{margin-top:14px}
+.month-help{max-width:52ch;color:var(--muted)}
+.month-help p{margin:0 0 10px}

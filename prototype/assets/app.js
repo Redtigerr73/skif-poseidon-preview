@@ -105,7 +105,11 @@ const agendaState = { type: "all", listeners: [] };
 
 document.querySelectorAll("[data-calendar]").forEach((root) => {
 	const EVENTS = DATA.events || [];
-	let cur = new Date(NOW.getFullYear(), NOW.getMonth(), 1);
+	const MINI = root.hasAttribute("data-mini"); // preview: a day opens the full agenda on that day
+	// The full agenda can be opened on a given day: agenda.html?jour=2026-10-28
+	const asked = !MINI && /^\d{4}-\d{2}-\d{2}$/.test(new URLSearchParams(location.search).get("jour") || "")
+		? new URLSearchParams(location.search).get("jour") : null;
+	let cur = asked ? new Date(+asked.slice(0, 4), +asked.slice(5, 7) - 1, 1) : new Date(NOW.getFullYear(), NOW.getMonth(), 1);
 	const head = el("div", "cal-head");
 	const prev = el("button", "cal-nav", "‹");
 	const next = el("button", "cal-nav", "›");
@@ -219,7 +223,7 @@ document.querySelectorAll("[data-calendar]").forEach((root) => {
 					cell.type = "button";
 					const what = { open: `${st.classes?.length} cours`, closed: st.closure?.example ? "dojo fermé (exemple)" : "dojo fermé", reduced: "horaire réduit", holiday: "pas de cours, vacances", none: "" }[st.kind];
 					cell.setAttribute("aria-label", `${d.getDate()} ${MONTHS[d.getMonth()]} : ${[what, ...has.map((e) => e.short)].filter(Boolean).join(", ")}`);
-					cell.onclick = () => showDay(key);
+					cell.onclick = MINI ? () => { location.href = `${root.dataset.full}?jour=${key}`; } : () => showDay(key);
 				}
 				if (key === iso(NOW)) cell.setAttribute("aria-current", "date");
 				week.append(cell);
@@ -265,6 +269,7 @@ document.querySelectorAll("[data-calendar]").forEach((root) => {
 	}
 	agendaState.listeners.push(draw);
 	draw();
+	if (asked) { showDay(asked); panel?.scrollIntoView({ block: "nearest" }); }
 });
 
 /* Agenda list filter (shares its state with the calendar). */
