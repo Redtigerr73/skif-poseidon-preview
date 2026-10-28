@@ -427,7 +427,13 @@ html.lb-open{overflow:hidden}
 @media (max-width:420px){.member{grid-template-columns:1fr}.member .grade,.member .to-confirm{grid-column:1;grid-row:auto;justify-self:start}}
 .kun{margin:0;padding-left:22px;display:grid;gap:10px}
 .kun li span{display:block}
-.kun li span[lang=en]{color:var(--muted);font-size:15px}
+.kun li{padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.kun .kun-ja{font-weight:700}
+.kun .kun-fr{font-size:17px}
+.kun .kun-nl{font-size:16px;color:var(--ink)}
+.kun .kun-en{color:var(--muted);font-size:14px}
+.kun .kun-nl::before{content:"NL ";font-weight:700;color:var(--muted);font-size:12px}
+.kun .kun-en::before{content:"EN ";font-weight:700;font-size:12px}
 .doc-links{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .doc-links a{display:inline-flex;align-items:center;min-height:44px;font-weight:700}
 
