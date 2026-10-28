@@ -58,7 +58,7 @@ document.querySelectorAll("[data-timetable]").forEach((root) => {
 			s.classList.toggle("dim", !ok);
 			if (ok) n++;
 		});
-		root.querySelectorAll(".board-day").forEach((d) => d.classList.toggle("all-dim", !root.querySelector(`.slot[data-day="${d.dataset.day}"]:not(.dim)`)));
+		root.querySelectorAll(".board-day:not([data-empty])").forEach((d) => d.classList.toggle("all-dim", !root.querySelector(`.slot[data-day="${d.dataset.day}"]:not(.dim)`)));
 		count.textContent = n ? `${n} cours ${n > 1 ? "correspondent" : "correspond"}` : "";
 		if (!n) {
 			count.textContent = "Aucun cours ne correspond. ";
@@ -128,13 +128,49 @@ document.querySelectorAll("[data-calendar]").forEach((root) => {
 	next.onclick = () => go(new Date(cur.getFullYear(), cur.getMonth() + 1, 1));
 	today.onclick = () => go(new Date(NOW.getFullYear(), NOW.getMonth(), 1));
 	const visible = () => EVENTS.filter((e) => agendaState.type === "all" || e.type === agendaState.type);
+	const CLASSES = DATA.classes || [];
+	const SEASON = DATA.season || { start: "", end: "" };
+	const PERIODS = DATA.periods || [];
+	// What the dojo does on a given day: closed, holiday with reduced hours, regular classes, or nothing.
+	function status(key, d) {
+		const closure = EVENTS.find((e) => e.type === "closure" && e.start <= key && e.end >= key);
+		if (closure) return { kind: "closed", closure };
+		const period = PERIODS.find((p) => p.start <= key && p.end >= key);
+		if (period) {
+			const sessions = period.sessions.filter((s) => s.date === key);
+			return { kind: sessions.length ? "reduced" : "holiday", period, sessions };
+		}
+		const wd = ((d.getDay() + 6) % 7) + 1;
+		const today = CLASSES.filter((c) => c.day === wd).sort((a, b) => (a.start < b.start ? -1 : 1));
+		if (today.length && key >= SEASON.start && key <= SEASON.end) return { kind: "open", classes: today };
+		return { kind: "none" };
+	}
 
 	function showDay(day) {
 		if (!panel) return;
-		const list = visible().filter((e) => e.start <= day && e.end >= day);
+		const list = visible().filter((e) => e.start <= day && e.end >= day && e.type !== "closure");
 		panel.replaceChildren();
 		const d = new Date(day + "T12:00");
-		panel.append(el("h3", "", `Le ${d.getDate()} ${MONTHS[d.getMonth()]}`));
+		const st = status(day, d);
+		panel.append(el("h3", "", `${["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"][d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`));
+		if (st.kind === "closed") {
+			const a = el("a", "day-item day-closed", st.closure.example ? "Dojo fermé (exemple)" : "Dojo fermé");
+			a.href = st.closure.url;
+			panel.append(a);
+		} else if (st.kind === "holiday") {
+			panel.append(el("p", "day-note", `Pas de cours. ${st.period.label}.`));
+		} else if (st.kind === "reduced") {
+			st.sessions.forEach((s) => panel.append(el("p", "day-note", `Horaire réduit : ${s.time}. ${s.text}.`)));
+		} else if (st.kind === "open") {
+			st.classes.forEach((c) => {
+				const row = el("p", `day-class g-${c.group}`);
+				row.append(el("span", "slot-time", `${c.start} à ${c.end}`), el("span", "", c.who));
+				panel.append(row);
+			});
+			panel.append(el("p", "note", "Horaires à confirmer par le club."));
+		} else if (!list.length) {
+			panel.append(el("p", "day-note", "Pas de cours ce jour-là."));
+		}
 		list.forEach((e) => {
 			const a = el("a", `day-item t-${e.type}`);
 			a.href = e.url;
@@ -152,7 +188,7 @@ document.querySelectorAll("[data-calendar]").forEach((root) => {
 		const last = new Date(cur.getFullYear(), cur.getMonth() + 1, 0);
 		const start = new Date(first);
 		start.setDate(1 - ((first.getDay() + 6) % 7));
-		const evs = visible();
+		const evs = visible().filter((e) => e.type !== "closure"); // closures are drawn on the days themselves
 		let inMonth = 0;
 		for (let w = new Date(start); w <= last; w.setDate(w.getDate() + 7)) {
 			const week = el("div", "cal-week");
@@ -165,13 +201,24 @@ document.querySelectorAll("[data-calendar]").forEach((root) => {
 				d.setDate(w.getDate() + i);
 				const key = iso(d);
 				const has = evs.filter((e) => e.start <= key && e.end >= key);
-				const cell = el(has.length ? "button" : "div", `cal-day${d.getMonth() !== cur.getMonth() ? " out" : ""}${key === iso(NOW) ? " today" : ""}${has.length ? " has" : ""}`);
+				const st = status(key, d);
+				const active = has.length || st.kind !== "none";
+				const cell = el(active ? "button" : "div", `cal-day ${st.kind}${d.getMonth() !== cur.getMonth() ? " out" : ""}${key === iso(NOW) ? " today" : ""}${has.length ? " has" : ""}`);
 				cell.dataset.date = key;
 				cell.style.gridColumn = String(i + 1);
 				cell.append(el("span", "cal-num", String(d.getDate())));
-				if (has.length) {
+				if (st.kind === "open") {
+					const dots = el("span", "cal-dots");
+					dots.setAttribute("aria-hidden", "true");
+					[...new Set(st.classes.map((c) => c.group))].forEach((g) => dots.append(el("i", `g-${g}`)));
+					cell.append(dots);
+				} else if (st.kind !== "none") {
+					cell.append(el("span", "cal-state", st.kind === "closed" && st.closure.example ? "Exemple : fermé" : { closed: "Fermé", reduced: "Réduit", holiday: "Vacances" }[st.kind]));
+				}
+				if (active) {
 					cell.type = "button";
-					cell.setAttribute("aria-label", `${d.getDate()} ${MONTHS[d.getMonth()]} : ${has.map((e) => e.short).join(", ")}`);
+					const what = { open: `${st.classes?.length} cours`, closed: st.closure?.example ? "dojo fermé (exemple)" : "dojo fermé", reduced: "horaire réduit", holiday: "pas de cours, vacances", none: "" }[st.kind];
+					cell.setAttribute("aria-label", `${d.getDate()} ${MONTHS[d.getMonth()]} : ${[what, ...has.map((e) => e.short)].filter(Boolean).join(", ")}`);
 					cell.onclick = () => showDay(key);
 				}
 				if (key === iso(NOW)) cell.setAttribute("aria-current", "date");
@@ -196,6 +243,8 @@ document.querySelectorAll("[data-calendar]").forEach((root) => {
 		}
 		empty.replaceChildren();
 		empty.hidden = inMonth > 0;
+		const outside = iso(last) < SEASON.start || iso(first) > SEASON.end;
+		if (outside) { empty.hidden = false; empty.append(el("p", "note", "Les jours de cours ne sont indiqués que pour la saison 2026-2027 (septembre à juin).")); }
 		const button = (label, fn) => { const b = el("button", "btn btn-soft", label); b.type = "button"; b.onclick = fn; empty.append(b); };
 		if (!inMonth && agendaState.type === "all") {
 			empty.append(document.createTextNode("Aucun événement ce mois-ci. "));

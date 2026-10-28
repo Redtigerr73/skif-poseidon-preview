@@ -22,6 +22,16 @@ RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
+UID:fermeture-travaux-2023-10@skif-poseidon.com
+DTSTAMP:20261028T190000Z
+DTSTART;VALUE=DATE:20231027
+DTEND;VALUE=DATE:20231030
+SUMMARY:Dojo fermé pour travaux
+LOCATION:Complexe sportif du Poseidon
+DESCRIPTION:Fermeture pour travaux du 27 au 29 octobre 2023\, reprise le lu
+ ndi 30/10/2023.
+END:VEVENT
+BEGIN:VEVENT
 UID:fumitoshi-2026@skif-poseidon.com
 DTSTAMP:20261028T190000Z
 DTSTART;TZID=Europe/Brussels:20260221T133000
@@ -32,6 +42,16 @@ LOCATION:Complexe sportif du Poseidon\, Avenue des Vaillants 2\, 1200 Woluw
 DESCRIPTION:Cours ouvert avec Fumitoshi Kanazawa Sensei\, 6e dan\, instruct
  eur au honbu dojo de Tokyo\, assisté de Patrick Sensei. Moins de 13 ans d
  e 13:30 à 14:30\, 13 ans et plus de 14:45 à 16:30.
+END:VEVENT
+BEGIN:VEVENT
+UID:fermeture-mai-2026@skif-poseidon.com
+DTSTAMP:20261028T190000Z
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20260504
+SUMMARY:Dojo fermé
+LOCATION:Complexe sportif du Poseidon
+DESCRIPTION:Fermeture exceptionnelle du vendredi 1er au dimanche 3 mai incl
+ us. Les cours ont repris le lundi 4 mai.
 END:VEVENT
 BEGIN:VEVENT
 UID:castrique-2026@skif-poseidon.com
