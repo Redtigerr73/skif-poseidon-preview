@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cours d&#x27;essai | SKIF Poseidon</title>
+<meta name="description" content="Karaté Shotokan SKIF au complexe Poseidon, Woluwe-Saint-Lambert. Prototype du nouveau site.">
+<link rel="icon" href="assets/img/logo-poseidon-320.webp">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="notice" role="status"><div class="wrap"><span class="example">Exemple</span> <strong>Dojo fermé du lundi 2 au mercredi 4 novembre 2026</strong>, reprise le vendredi 6 novembre. <a href="agenda/fermeture-exemple-2026-11.html">Détails</a></div></div>
+<header class="nav"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/img/logo-poseidon-320.webp" alt="" width="44" height="44"><span class="brand-name">SKIF Poseidon</span></a>
+<nav class="links" aria-label="Navigation principale"><a href="cours.html">Cours</a><a href="agenda.html">Agenda</a><a href="actualites/index.html">Actualités</a><a href="galerie/index.html">Galerie</a><a href="club.html">Le club</a><a href="faq.html">FAQ</a></nav>
+<div class="langs" aria-label="Langue"><span class="lang-on" aria-current="true">FR</span><a href="nl.html" hreflang="nl" lang="nl">NL</a><a href="en.html" hreflang="en" lang="en">EN</a></div>
+<a class="btn btn-primary nav-cta" href="essai.html">Cours d'essai</a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+</div>
+<div class="menu" id="menu" hidden><div class="wrap"><nav aria-label="Menu"><a href="cours.html">Cours</a><a href="agenda.html">Agenda</a><a href="actualites/index.html">Actualités</a><a href="galerie/index.html">Galerie</a><a href="club.html">Le club</a><a href="faq.html">FAQ</a></nav><div class="langs"><span class="lang-on" aria-current="true">FR</span><a href="nl.html" hreflang="nl" lang="nl">NL</a><a href="en.html" hreflang="en" lang="en">EN</a></div></div></div>
+</header>
+<main id="contenu" tabindex="-1">
+<div class="page-head compact"><div class="wrap"><h1>Cours d'essai</h1><p>Une minute pour demander. Le club vous répond par e-mail avec le jour, l'heure et ce qu'il faut apporter.</p></div></div>
+<section><div class="wrap form-wrap">
+<form class="form" action="essai-envoye.html" method="get" data-demo-form>
+<p class="note demo-only">Démonstration : rien n'est envoyé, aucune donnée n'est gardée.</p>
+<div class="field"><label for="prenom">Prénom</label><input id="prenom" autocomplete="given-name" required data-fold></div>
+<div class="field"><label for="age">Âge</label><input id="age" type="number" min="4" max="99" inputmode="numeric" required></div>
+<fieldset class="field" data-parent hidden><legend>Pour un enfant : le parent</legend>
+<label for="parent">Nom du parent</label><input id="parent" autocomplete="name"></fieldset>
+<div class="field"><label for="niveau">Niveau</label><select id="niveau"><option>Je débute</option><option>J'ai déjà pratiqué le karaté</option><option>Je suis ceinture de couleur ou noire</option></select></div>
+<div class="field"><label for="cours">Cours souhaité</label><select id="cours"><option value="">Je ne sais pas encore</option><option>Lundi, adultes (21:00)</option><option>Mercredi, 9 à 12 ans (18:45)</option><option>Mercredi, 13 à 16 ans (19:45)</option><option>Mercredi, 3e kyu et plus (20:45)</option><option>Vendredi, adultes (21:00)</option><option>Samedi, 6 à 8 ans (14:30)</option><option>Samedi, 9 à 12 ans (15:30)</option><option>Samedi, 13 à 16 ans (16:45)</option><option>Dimanche, kumite, 7e kyu et plus (10:00)</option><option>Dimanche, kata, 7e kyu et plus (11:00)</option></select></div>
+<div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" required></div>
+<div class="field"><label for="tel">Téléphone <span class="opt">(facultatif)</span></label><input id="tel" type="tel" autocomplete="tel"></div>
+<div class="field"><label for="source">Comment nous avez-vous connus ?</label><select id="source" required><option value="">Choisir</option><option>Bouche-à-oreille</option><option>Facebook</option><option>Recherche Google</option><option>Affiche ou passage au complexe</option><option>Un membre du club</option><option>Autre</option></select></div>
+<button class="btn btn-primary" type="submit">Demander mon cours d'essai</button>
+</form>
+<aside class="aside"><h2>Bon à savoir</h2><ul class="facts"><li>Venez en tenue de sport.</li><li>Les enfants peuvent commencer dès 6 ans (à confirmer par le club).</li></ul>
+<p class="note">Source : article du club « Commencer le karaté en 3 étapes ».</p>
+<a class="btn btn-soft" href="cours.html">Voir les horaires</a></aside>
+</div></section>
+</main>
+<footer class="foot"><div class="wrap">
+<div><strong>SKIF Poseidon</strong><br>Club membre de SKIF Belgium<br><address>Complexe sportif du Poseidon<br>Avenue des Vaillants 2, 1200 Woluwe-Saint-Lambert</address></div>
+<ul class="foot-links"><li><a href="contact.html">Contact</a></li><li><a href="faq.html">Questions fréquentes</a></li><li><a href="club.html#asbl">Mentions légales</a></li><li><a href="club.html#documents">Documents</a></li><li><a href="../maquettes/index.html">Voir les 5 styles proposés</a></li></ul>
+<p class="demo-note">Prototype : la date de démonstration est le 28/10/2026. Les horaires, tarifs et grades marqués « à confirmer » attendent la validation du club.</p>
+</div></footer>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
