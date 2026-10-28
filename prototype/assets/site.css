@@ -243,7 +243,7 @@ button.cal-day:hover{background:#f3f5fa}
 .mm{font-size:14px;font-weight:700;color:var(--ink)}
 .event-type{font-size:13px;font-weight:800;color:var(--ink)}
 .event h3{margin:2px 0 4px;font-size:18px;line-height:1.25}
-.event h3 a{text-decoration:none;display:inline-block;min-height:44px}
+.event h3 a{text-decoration:none}
 .event h3 a:hover{text-decoration:underline}
 .event p{margin:0;font-size:15px;color:var(--muted)}
 .events-empty{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:600}
@@ -537,3 +537,6 @@ html.lb-open{overflow:hidden}
 
 /* long button labels may wrap on small phones */
 @media (max-width:480px){.btn{white-space:normal;text-align:center;line-height:1.25;padding-block:10px}}
+
+.month-solo{max-width:920px}
+.sec-month+.sec-week{padding-top:8px}
